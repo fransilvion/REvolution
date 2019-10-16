@@ -49,7 +49,7 @@ All the described steps form one iteration. Typically, genetic algorithm consist
 
 The whole steps above are summarised in a figure below:
 
-![Imgur](https://i.imgur.com/RpyBHJD.png)
+![Imgur](https://i.imgur.com/x10dv0h.png)
 
 
 
