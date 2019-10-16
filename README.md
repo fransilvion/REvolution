@@ -59,11 +59,21 @@ The whole steps above are summarised in a figure below:
 
 ![Alt Text](https://i.imgur.com/qVyIWmK.gif)
 
+The goal of this project is to apply genetic algorithm to "design" a CA that is capable of performing a predefined task.
 
+**Fitness function:** x/t + y/t
 
-Fitness function: x/t + y/t
+## Required software 
 
-### Required software
+* [Golly](http://golly.sourceforge.net/)
+
+* R (and RStudio)
+
+* Python (and an IDE for it)
+
+* gcc (or any C compiler)
+
+* Amazon AWS CLI
 
 
 
