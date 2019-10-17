@@ -59,9 +59,17 @@ The whole steps above are summarised in a figure below:
 
 ![Alt Text](https://i.imgur.com/qVyIWmK.gif)
 
-The goal of this project is to apply genetic algorithm to "design" a CA that is capable of performing a predefined task.
+The goal of this project is to apply the genetic algorithm to "design" a CA that is capable of performing a predefined task.
+
+Concretely, the task for each CA would be to move to the end of the specified "road" (see picture above). We will initialize 10,000 random GoL states, run all of them till convergence and select a certain number of best CAs. 
+
+The fitness function for the selection process will be discussed, but the easiest one to try would be the distance traveled in **x** and **y** coordinates: 
 
 **Fitness function:** x/t + y/t
+
+Another challenge we will face is the crossover operation. We need to come up with a better way to "mix" the best performing CAs to produce a better offspring. The crossover and mutation steps will finish each iteration of our genetic algorithm. 
+
+New CAs will start the whole path all over again. Hopefully, and the end we will have CAs that "evolved" to complete the task
 
 ## Required software 
 
