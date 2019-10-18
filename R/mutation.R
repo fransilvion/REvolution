@@ -12,8 +12,8 @@
 #'
 #' @examples
 #'
-#' # Create a 9x9 matrix with 50% "on" density
-#' rle2mat(file_path)
+#'
+#'
 #'
 #' @export
 
