@@ -45,7 +45,8 @@ rle2mat <- function(file_path) {
       }
       else
         blanks = 0
-      print(blanks)
+      #print(blanks)
+      
     }
   }
   
