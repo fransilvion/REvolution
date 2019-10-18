@@ -13,6 +13,7 @@
 #'
 #' @examples
 #'
+#'
 #' @export
 population <- setClass(Class = "population", representation(organisms = "list", fitness = "vector"))
 
