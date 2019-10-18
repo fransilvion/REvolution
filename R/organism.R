@@ -1,6 +1,8 @@
 #' organism - class definition
 #'
-#' Creates a plot of the crayon colors in \code{\link{brocolors}}
+#' In the Game of Evolution, an organism is an I x J binary matrix.
+#' Each ON state in this matrix is a 'living cell' in Game of Life
+#' Each OFF state in this matrix is a 'dead cell' in Game of Life
 #'
 #' @param organism Class definition for an I x J binary matrix of cells.
 #'
