@@ -4,72 +4,87 @@ In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Lif
 
 ![Alt Text](https://matthewdharriscom.files.wordpress.com/2016/02/gol1b.gif)
 
-## Rules of the game
+## Rules of the Game of Life
 
 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 
-2. Any live cell with two or three live neighbours lives on to the next generation.
+2. Any live cell with two or three live neighbours lives on to the next iteration.
 
 3. Any live cell with more than three live neighbours dies, as if by over-population.
 
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
    
+## Rules of the Game of Evolution
+
+1. The universe is Conway's Game of Life (see above).
+
+2. All initial states ('organisms') of the system must be randomly set.
+
+3. The objective is to design an environment which elicites a response from the set of all possible organisms.
+
+4. Individual organisms may be stochiastically mutated.
+
+5. The game is won when an organism is evolved that can recapitulate the internal logic of the Game of Evolution.
 
 ## Genetic algorithm
 
-Taken from [this nice overview](https://medium.com/sigmoid/https-medium-com-rishabh-anand-on-the-origin-of-genetic-algorithms-fc927d2e11e0)
+Taken from [this overview](https://medium.com/sigmoid/https-medium-com-rishabh-anand-on-the-origin-of-genetic-algorithms-fc927d2e11e0)
 
-Genetic Algorithms (GA) work on the basic principles of evolution as it is a  meta heuristic to natural selection and the various subprocesses that  occur spontaneously. This involves incorporating the 4 fundamental steps of evolution:
+Evolution is a natural algorithm that arises from three fundamental properties. Any system with these three properties can be said to be evolving.
+
+- Heritability
+- Variability
+- Selection
+
+Genetic Algorithms (GA) work on the basic principles of evolution and some subprocesses that results from it. This involves incorporating the 4 fundamental steps of evolution:
 
 - Fitness
 - Selection
-- Crossover
+- Crosover
 - Mutation
 
-Together, these 4 processes, when performed on a population of agents yield the fittest agent for the task being performed.
+Together, these 4 processes, when performed on a population of organisms yield the fittest organism for the task being performed.
 
 ### Fitness
 
-Fitness (or loss) function is designed to measure how well agents in the population can complete the given task. This function can vary from application to application. But it has to be a good differentiator, so it can be used to separate good agents from the bad ones.
+Fitness (also called loss function) is designed to measure how well organisms in the population complete the given task. This function can vary from application to application but it has to be a good differentiator, so it can be used to separate good agents from the bad ones.
 
 ### Selection
 
-At this step we allow just a few best-scoring agents to remain in a population. By doing this, we provide a new space for new agent instances, which hopefully will be better in the task completing than their predecessors.
+At this step we allow only the most fit organisms to remain in a population. By culling the weak, we provide a space for new organisms to arise from the fit organisms going into the next generation.
 
-### Crossover
+### Crossover/Sex
 
-The idea behind this step is that two strong agents reproduce to have a better offspring. In formal way, we can take certain or random parts from each of the two agents, and combine them to produce a "child", a new agent instance. 
+The idea behind this step is that two strong organisms reproduce to have a better offspring. In formal way, we can take certain or random parts from each of the two agents, and combine them to produce a "progeny". 
 
 ### Mutation
 
-Just like crossover, or sex, mutations play huge role in the evolution. Their primary goal is to make populations more variable and stochastic. Therefore, we introduce random mutations in agents, random point changes that produce a new "organism". 
+Mutations drive evolution. At the end of each generation, the fittest organisms grow to fill the space (left over from the culled organisms). As this growth occurs, a mutation function is applied to introduce variation in the daughters. 
 
-All the described steps form one iteration. Typically, genetic algorithm consists of several hundred (or even more, depending on application) iterations. The algorithm stops when the terminating criterion or condition is satisfied. This condition also varies in different problems: it can be the specified number of iterations; loss function reached the plateau; performance score is higher than the specified threshold. 
+These four steps form one "generation".
 
-The whole steps above are summarised in a figure below:
+Typically, thousands (or in the case of humans billions) of generations occur to 'solve' an environment.
 
 ![Imgur](https://i.imgur.com/x10dv0h.png)
 
-
-
-## First level of the game
-
-
+## An example environment
 
 ![Alt Text](https://i.imgur.com/qVyIWmK.gif)
 
-The goal of this project is to apply the genetic algorithm to "design" a CA that is capable of performing a predefined task.
+The objective of this project is to create a meta-framework in which the Game of Evolution may be played.
 
-Concretely, the task for each CA would be to move to the end of the specified "road" (see picture above). We will initialize 10,000 random GoL states, run all of them till convergence and select a certain number of best CAs. 
+For example, we initiate 10,000 each of an organism defined as a 1,000 unit-cell circle (that is 10^301 possible states). Each organism will run for a million iterations of the Game of Life.
 
-The fitness function for the selection process will be discussed, but the easiest one to try would be the distance traveled in **x** and **y** coordinates: 
+After a million iterations, organisms fitness is evaluted by far (up and to the right) and how quickly the organism reached within the environment the organism reached.
 
 **Fitness function:** x/t + y/t
 
-Another challenge we will face is the crossover operation. We need to come up with a better way to "mix" the best performing CAs to produce a better offspring. The crossover and mutation steps will finish each iteration of our genetic algorithm. 
+The 1,000 most fit organisms from the current generation will be selected, allowed to grow via the mutation function and form the next generation.
 
-New CAs will start the whole path all over again. Hopefully, and the end we will have CAs that "evolved" to complete the task
+**Mutation function** Mu(organism_N) = {organism_N1,organism_N2,...,organism_N10}
+
+New organisms will arise, and the process restarts. Each iteration brining the evolved organisms closer and closer to 'solving' the environment.
 
 ## Required software 
 
