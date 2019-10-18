@@ -35,7 +35,7 @@ rle2mat <- function(file_path) {
   blanks=0
   for (char in cells) 
   {
-    print(char)
+    #print(char)
     char_elem = strsplit(char, "o")[[1]]
     for (steps in char_elem) 
     {
