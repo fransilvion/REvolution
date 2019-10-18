@@ -7,27 +7,31 @@
 #' This is the class definition of a list of organisms and their associated
 #' fitness values
 #'
-#' @param population Class definition for a list of organisms.
+#' @param organisms an ordered List of organism-objects
+#' @param fitness an ordered Vector of numerical fitness-evaluation values for each organism in population. [NA]
 #'
-#' @return None
+#' @return population
 #'
 #' @examples
 #'
+#' # The population at g0 is glider and inverse_glider organisms
+#' # Fitness is initially undefined
+#' gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
 #'
 #' @export
 population <- setClass(Class = "population", representation(organisms = "list", fitness = "vector"))
 
-# Example of a glider encoded as logical matrix
-glider_logical <- matrix( data = c(F,T,F,
-                                   F,F,T,
-                                   T,T,T), nrow = 3, byrow = T)
-
-# Example of a glider encoded as an organism
-glider <- organism(cells = glider_logical)
-
-# Inverse of the glider above
-glider_inv <- !attr(glider, "cells")
-
-gliders_g0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
+# # Example of a glider encoded as logical matrix
+# glider_logical <- matrix( data = c(F,T,F,
+#                                    F,F,T,
+#                                    T,T,T), nrow = 3, byrow = T)
+#
+# # Example of a glider encoded as an organism
+# glider <- organism(cells = glider_logical)
+#
+# # Inverse of the glider above
+# glider_inv <- !attr(glider, "cells")
+#
+# gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
 
 #QED

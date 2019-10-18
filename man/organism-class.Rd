@@ -6,10 +6,10 @@
 \alias{organism}
 \title{organism - class definition}
 \arguments{
-\item{organism}{Class definition for an I x J binary matrix of cells.}
+\item{cells}{an IxJ binary matrix to be stored as an organism}
 }
 \value{
-None
+organism
 }
 \description{
 In the Game of Evolution, an organism is an I x J binary matrix.

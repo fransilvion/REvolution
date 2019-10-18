@@ -6,10 +6,12 @@
 \alias{population}
 \title{population - class definition}
 \arguments{
-\item{population}{Class definition for a list of organisms.}
+\item{organisms}{an ordered List of organism-objects}
+
+\item{fitness}{an ordered Vector of numerical fitness-evaluation values for each organism in population. [NA]}
 }
 \value{
-None
+population
 }
 \description{
 For each geneartion (G_i) in the Game of Evolution
@@ -21,5 +23,9 @@ This is the class definition of a list of organisms and their associated
 fitness values
 }
 \examples{
+
+# The population at g0 is glider and inverse_glider organisms
+# Fitness is initially undefined
+gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
 
 }

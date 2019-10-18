@@ -4,9 +4,9 @@
 #' Each ON state in this matrix is a 'living cell' in Game of Life
 #' Each OFF state in this matrix is a 'dead cell' in Game of Life
 #'
-#' @param organism Class definition for an I x J binary matrix of cells.
+#' @param cells an IxJ binary matrix to be stored as an organism
 #'
-#' @return None
+#' @return organism
 #'
 #' @examples
 #' # Example of a glider encoded as logical matrix
