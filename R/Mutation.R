@@ -22,7 +22,7 @@
 #org <- sample(c(0,1), sz^2, replace = TRUE, prob = c(0.99, 0.01)) %>% matrix(nrow = sz, ncol = sz)
 # matrix(c(1,2,3,4), ncol=2) will become COL1(1,2), ROW2(3,4)
 
-Mutation <- function(org_bin_matr, md = c("constant", "guassian", "poisson"), mut_rate_avg, mut_rate_sd= NULL) {
+Mutation <- function(org_bin_matr, md = c("constant", "poisson"), mut_rate_avg) {
   # Create matrix to mutate
   org_mut <- as.logical(org_bin_matr@cells)
 
