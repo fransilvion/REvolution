@@ -19,12 +19,43 @@
 Fitness <- function(inOrg, fun = "max_x"){
   # Convert the inOrg object to a binary matrix
   inOrg_l <- inOrg@cells
+  # Shifts to center the matrix
+  x_shift <- inOrg@shift[1]
+  y_shift <- inOrg@shift[2]
 
   if (fun == "max_x"){
     # fit is the largest X value
     # with a living cell
+    # TODO: This considers an 'organism' as only what
+    # is defined by the matrix
     #
+    # Since they can be offset in an otherwise empty
+    # area, this does not account for that.
     fit <- max( which(colSums(inOrg_l) > 0) )
+    fit <- fit + x_shift
+
+    # Since Y-axis can be both positive and negative
+    # subtract the matrix shift value from each row
+    #
+    # For y_shift = -3
+    #  rowN   y_coordinate (reverse N, subtract y_shift)
+    #     1 ->  2
+    #     2 ->  1
+    #     3 ->  0
+    #     4 ->  -1
+    #     5 ->  -2
+    #
+
+    y_values <- nrow(inOrg_l):1 - y_shift
+    cost <- abs( y_values[ max( which(rowSums(inOrg_l) > 0) ) ] )
+
+    fit <- fit - cost^2
+
+  } else if (fun == "env0"){
+    # Fitness Function -- Environment 1
+    # Optimize for EAST movement
+    # Exponential Cost for N/S deviation
+
   } else {
     stop("Error: Fitness evaluation function 'fun' was not found.")
   }

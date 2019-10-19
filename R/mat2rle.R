@@ -1,4 +1,4 @@
-#' rle2mat
+#' mat2rle
 #'
 #' pattern reading function
 #' read a .rle pattern file and convert it to I x J matrix
@@ -76,4 +76,4 @@ line <- paste0(line, "$", collapse="")
 
 rle(test[1,])
 
-sprintf("x = %s, y = %s, rule = B3/S23", x, y)
+#sprintf("x = %s, y = %s, rule = B3/S23", x, y)

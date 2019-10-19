@@ -7,6 +7,8 @@
 \title{organism - class definition}
 \arguments{
 \item{cells}{an IxJ binary matrix to be stored as an organism}
+
+\item{shift}{a Vector of c(X,Y) coordinate offsets to center the cells matrix [c(0,0)]}
 }
 \value{
 organism
@@ -15,6 +17,9 @@ organism
 In the Game of Evolution, an organism is an I x J binary matrix.
 Each ON state in this matrix is a 'living cell' in Game of Life
 Each OFF state in this matrix is a 'dead cell' in Game of Life
+}
+\details{
+To account for
 }
 \examples{
 # Example of a glider encoded as logical matrix
