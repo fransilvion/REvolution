@@ -19,7 +19,7 @@
 #' gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
 #'
 #' @export
-population <- setClass(Class = "population", representation(organisms = "list", fitness = "vector"))
+population <- setClass(Class = "population", representation(organisms = "list", fitness = "vector", maternal_line = "vector"))
 
 # # Example of a glider encoded as logical matrix
 # glider_logical <- matrix( data = c(F,T,F,
