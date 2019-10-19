@@ -23,7 +23,16 @@ god <- function(I, J, density) {
   organism_l <- matrix(sample(0:1, I*J, replace=TRUE, prob=c(1-density, density)), I, J)
   organism_l <- organism_l > 0
 
+  # The XRLE files encode POS to shift the matrix
+  # based on the TOP LEFT of the matrix
+  #
+  # add shift to organism
+  shift_l <- c( -I%/%2, -J%/%2)
+
+
   # Convert the logical matrix into an organism object
-  org <- organism( cells = organism_l )
+  org <- organism( cells = organism_l , shift = shift_l )
+
+
   return(org)
 }
