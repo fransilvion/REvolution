@@ -22,7 +22,7 @@
 #org <- sample(c(0,1), sz^2, replace = TRUE, prob = c(0.99, 0.01)) %>% matrix(nrow = sz, ncol = sz)
 # matrix(c(1,2,3,4), ncol=2) will become COL1(1,2), ROW2(3,4)
 
-Mutation <- function(org_bin_matr, md = c("constant", "poisson"), mut_rate_avg) {
+Mutation <- function(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1) {
   # Create matrix to mutate
   org_mut <- as.logical(org_bin_matr@cells)
 
@@ -30,16 +30,13 @@ Mutation <- function(org_bin_matr, md = c("constant", "poisson"), mut_rate_avg) 
   if(md == "constant"){
     mut_rate = mut_rate_avg
   }
-  #if(md == "gaussian") {
-  #  if(is.null(mut_rate_sd)) {
-  #    return("Define mut_rate_sd if Gaussian mutation distribution selected.")
-  #    break}
-  #  mut_rate = rnorm(1, mut_rate_avg, mut_rate_sd)
-  #}
   if(md == "poisson") {
     mut_rate = rpois(1, length(org_mut)*mut_rate_avg)/length(org_mut)
-
   }
+  if(!(md %in% c("constant", "poisson"))) {
+    return("Select either constant or poisson")
+  }
+
   # Determine indices to mutate
   idx <- sample(1:length(org_mut), mut_rate*length(org_mut), replace = FALSE)
 
@@ -65,7 +62,7 @@ Mutation <- function(org_bin_matr, md = c("constant", "poisson"), mut_rate_avg) 
 #  }
 
   org_mut <- matrix(org_mut, ncol = ncol(org_bin_matr@cells), nrow = nrow(org_bin_matr@cells))
-  org_mut <- organism(cells = org_mut)
+  org_mut <- organism(cells = org_mut, shift = org_bin_matr@shift)
   return(org_mut)
 }
 

@@ -4,8 +4,8 @@
 \alias{Mutation}
 \title{Mutation}
 \usage{
-Mutation(org_bin_matr, md = c("constant", "guassian", "poisson"),
-  mut_rate_avg, mut_rate_sd = NULL)
+Mutation(org_bin_matr, md = c("constant", "poisson"),
+  mut_rate_avg = 0.1)
 }
 \arguments{
 \item{file_path}{full path of pattern file along with the name}
