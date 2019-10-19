@@ -149,7 +149,7 @@ options options[] = {
   { "-s", "--search", "Search directory for .rule files", 's', &user_rules },
   { "-h", "--hashlife", "Use Hashlife algorithm", 'b', &hashlife },
   { "-a", "--algorithm", "Select algorithm by name", 's', &algoName },
-  { "-o", "--output", "Output file (*xrle, *.rle, *.mc, *.rle.gz, *.mc.gz)", 's',
+  { "-o", "--output", "Output file (*xrle, *.rle, *.mc, *.rle.gz, *.mc.gz OR stdout for standard output)", 's',
                                                                &outfilename },
   { "-v", "--verbose", "Verbose", 'b', &verbose },
   { "-t", "--timeline", "Use timeline", 'b', &timeline },
@@ -179,7 +179,7 @@ int endswith(const char *s, const char *suff) {
 }
 
 void usage(const char *s) {
-  fprintf(stderr, "Usage:  bgolly [options] patternfile\n") ;
+  fprintf(stderr, "Usage:  bgolly [options] patternfile/stdin\n") ;
   for (int i=0; options[i].shortopt; i++)
     fprintf(stderr, "%3s %-15s %s\n", options[i].shortopt, options[i].longopt,
             options[i].desc) ;
