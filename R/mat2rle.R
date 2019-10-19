@@ -46,7 +46,8 @@ mat2rle <- function(organism, fileName){
   mat <- paste0(mat, collapse="")
   res <- gsub('.{1}$', '!', mat)
 
-  first_line <- "#CXRLE Pos=0,0"
+  #first_line <- "#CXRLE Pos=0,0"
+  first_line <- sprintf("#CXRLE Pos=%s,%s", organism@shift[1], organism@shift[2])
   second_line <- sprintf("x = %s, y = %s, rule = B3/S23", x, y)
   third_line <- res
 
