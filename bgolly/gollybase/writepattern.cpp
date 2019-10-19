@@ -294,54 +294,59 @@ private:
 
 const char *writepattern(const char *filename, lifealgo &imp,
                          pattern_format format, output_compression compression,
-                         int top, int left, int bottom, int right)
+                         int top, int left, int bottom, int right, bool useStdout)
 {
    // extract any comments if file exists so we can copy them to new file
    char *commptr = NULL;
-   FILE *f = fopen(filename, "r");
-   if (f) {
-      fclose(f);
-      const char *err = readcomments(filename, &commptr);
-      if (err) {
-         if (commptr) free(commptr);
-         return err;
-      }
-   }
-
-   // skip past any old #CXRLE lines at start of existing XRLE file
-   char *comments = commptr;
-   if (comments) {
-      while (strncmp(comments, "#CXRLE", 6) == 0) {
-         while (*comments != '\n') comments++;
-         comments++;
-      }
-   }
-
-   // open output stream
+   FILE *f = NULL;
    std::streambuf *streambuf = NULL;
    std::filebuf filebuf;
+   char* comments = NULL;
+   if (useStdout) {
+     streambuf = std::cout.rdbuf();
+   } else {
+     f = fopen(filename, "r");
+     if (f) {
+        fclose(f);
+        const char *err = readcomments(filename, &commptr);
+        if (err) {
+           if (commptr) free(commptr);
+           return err;
+        }
+     }
+
+     // skip past any old #CXRLE lines at start of existing XRLE file
+     comments = commptr;
+     if (comments) {
+        while (strncmp(comments, "#CXRLE", 6) == 0) {
+           while (*comments != '\n') comments++;
+           comments++;
+        }
+     }  
+     // open output stream
 #ifdef ZLIB
-   gzbuf gzbuf;
+     gzbuf gzbuf;
 #endif
 
-   switch (compression)
-   {
-   default:  /* no output compression */
-      streambuf = filebuf.open(filename, std::ios_base::out);
-      break;
+     switch (compression)
+     {
+     default:  /* no output compression */
+        streambuf = filebuf.open(filename, std::ios_base::out);
+        break;
 
-   case gzip_compression:
+     case gzip_compression:
 #ifdef ZLIB
-      streambuf = gzbuf.open(filename);
-      break;
+        streambuf = gzbuf.open(filename);
+        break;
 #else
-      if (commptr) free(commptr);
-      return "GZIP compression not supported";
+        if (commptr) free(commptr);
+        return "GZIP compression not supported";
 #endif
-   }
-   if (!streambuf) {
-      if (commptr) free(commptr);
-      return "Can't create pattern file!";
+     }
+     if (!streambuf) {
+        if (commptr) free(commptr);
+        return "Can't create pattern file!";
+     }
    }
    std::ostream os(streambuf);
 

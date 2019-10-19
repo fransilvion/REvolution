@@ -18,6 +18,9 @@
 #include <string.h>
 #include <cstdlib>
 
+// STDOUT
+bool useStdout = false;
+
 using namespace std ;
 
 double start ;
@@ -64,14 +67,14 @@ int benchmark ; // show timing?
 class progerrors : public lifeerrors {
 public:
    progerrors() {}
-   virtual void fatal(const char *s) { cout << "Fatal error: " << s << endl ; exit(10) ; }
-   virtual void warning(const char *s) { cout << "Warning: " << s << endl ; }
+   virtual void fatal(const char *s) { cerr << "Fatal error: " << s << endl ; exit(10) ; }
+   virtual void warning(const char *s) { cerr << "Warning: " << s << endl ; }
    virtual void status(const char *s) { 
       if (benchmark)
-         cout << timestamp() << " " << s << endl ;
+         cerr << timestamp() << " " << s << endl ;
       else {
          timestamp() ;
-         cout << s << endl ;
+         cerr << s << endl ;
       }
    }
    virtual void beginprogress(const char *s) { abortprogress(0, s) ; }
@@ -93,14 +96,14 @@ bool progerrors::abortprogress(double, const char *) {
 class stderrors : public lifeerrors {
 public:
    stderrors() {}
-   virtual void fatal(const char *s) { cout << "Fatal error: " << s << endl ; exit(10) ; }
-   virtual void warning(const char *s) { cout << "Warning: " << s << endl ; }
+   virtual void fatal(const char *s) { cerr << "Fatal error: " << s << endl ; exit(10) ; }
+   virtual void warning(const char *s) { cerr << "Warning: " << s << endl ; }
    virtual void status(const char *s) {
       if (benchmark)
-         cout << timestamp() << " " << s << endl ;
+         cerr << timestamp() << " " << s << endl ;
       else {
          timestamp() ;
-         cout << s << endl ;
+         cerr << s << endl ;
       }
    }
    virtual void beginprogress(const char *) {}
@@ -216,8 +219,8 @@ void writepat(int fc) {
    }
    const char *err = writepattern(thisfilename, *imp,
                                   output_type,
-                                  outputgzip ? gzip_compression : no_compression,
-                                  t.toint(), l.toint(), b.toint(), r.toint()) ;
+                                  (outputgzip && !useStdout) ? gzip_compression : no_compression,
+                                  t.toint(), l.toint(), b.toint(), r.toint(), useStdout) ;
    if (err != 0)
       lifewarning(err) ;
    cerr << ")" << flush ;
@@ -344,21 +347,21 @@ struct stepcmd : public cmdbase {
          imp->step() ;
       }
       if (timeline) imp->extendtimeline() ;
-      cout << imp->getGeneration().tostring() << ": " ;
-      cout << imp->getPopulation().tostring() << endl ;
+      cerr << imp->getGeneration().tostring() << ": " ;
+      cerr << imp->getPopulation().tostring() << endl ;
    }
 } step_inst ;
 struct showcmd : public cmdbase {
    showcmd() : cmdbase("show", "") {}
    virtual void doit() {
-      cout << imp->getGeneration().tostring() << ": " ;
-      cout << imp->getPopulation().tostring() << endl ;
+      cerr << imp->getGeneration().tostring() << ": " ;
+      cerr << imp->getPopulation().tostring() << endl ;
    }
 } show_inst ;
 struct quitcmd : public cmdbase {
    quitcmd() : cmdbase("quit", "") {}
    virtual void doit() {
-      cout << "Buh-bye!" << endl ;
+      cerr << "Buh-bye!" << endl ;
       exit(10) ;
    }
 } quit_inst ;
@@ -378,13 +381,13 @@ struct helpcmd : public cmdbase {
    helpcmd() : cmdbase("help", "") {}
    virtual void doit() {
       for (cmdbase *cmd=list; cmd; cmd = cmd->next)
-         cout << cmd->verb << " " << cmd->args << endl ;
+         cerr << cmd->verb << " " << cmd->args << endl ;
    }
 } help_inst ;
 struct getcmd : public cmdbase {
    getcmd() : cmdbase("get", "ii") {}
    virtual void doit() {
-     cout << "At " << iargs[0] << "," << iargs[1] << " -> " <<
+     cerr << "At " << iargs[0] << "," << iargs[1] << " -> " <<
         imp->getcell(iargs[0], iargs[1]) << endl ;
    }
 } get_inst ;
@@ -392,7 +395,7 @@ struct getnextcmd : public cmdbase {
    getnextcmd() : cmdbase("getnext", "ii") {}
    virtual void doit() {
      int v ;
-     cout << "At " << iargs[0] << "," << iargs[1] << " next is " <<
+     cerr << "At " << iargs[0] << "," << iargs[1] << " next is " <<
         imp->nextcell(iargs[0], iargs[1], v) << endl ;
    }
 } getnext_inst ;
@@ -405,7 +408,7 @@ struct copycmd : public cmdbase {
    virtual void doit() {
       cutbuf.clear() ;
       runnextloop() ;
-      cout << cutbuf.size() << " pixels copied." << endl ;
+      cerr << cutbuf.size() << " pixels copied." << endl ;
    }
 } copy_inst ;
 struct cutcmd : public cmdbase {
@@ -417,7 +420,7 @@ struct cutcmd : public cmdbase {
    virtual void doit() {
       cutbuf.clear() ;
       runnextloop() ;
-      cout << cutbuf.size() << " pixels cut." << endl ;
+      cerr << cutbuf.size() << " pixels cut." << endl ;
    }
 } cut_inst ;
 // this paste only sets cells, never clears cells
@@ -426,14 +429,14 @@ struct pastecmd : public cmdbase {
    virtual void doit() {
       for (unsigned int i=0; i<cutbuf.size(); i++)
          imp->setcell(cutbuf[i].first, cutbuf[i].second, 1) ;
-      cout << cutbuf.size() << " pixels pasted." << endl ;
+      cerr << cutbuf.size() << " pixels pasted." << endl ;
    }
 } paste_inst ;
 struct showcutcmd : public cmdbase {
    showcutcmd() : cmdbase("showcut", "") {}
    virtual void doit() {
       for (unsigned int i=0; i<cutbuf.size(); i++)
-         cout << cutbuf[i].first << " " << cutbuf[i].second << endl ;
+         cerr << cutbuf[i].first << " " << cutbuf[i].second << endl ;
    }
 } showcut_inst ;
 
@@ -450,7 +453,7 @@ lifealgo *createUniverse() {
    }
    staticAlgoInfo *ai = staticAlgoInfo::byName(algoName) ;
    if (ai == 0) {
-      cout << algoName << endl ; //!!!
+      cerr << algoName << endl ; //!!!
       lifefatal("No such algorithm") ;
    }
    lifealgo *imp = (ai->creator)() ;
@@ -491,10 +494,10 @@ struct edgescmd : public cmdbase {
    virtual void doit() {
       bigint t, l, b, r ;
       imp->findedges(&t, &l, &b, &r) ;
-      cout << "Bounding box " << l.tostring() ;
-      cout << " " << t.tostring() ;
-      cout << " .. " << r.tostring() ;
-      cout << " " << b.tostring() << endl ;
+      cerr << "Bounding box " << l.tostring() ;
+      cerr << " " << t.tostring() ;
+      cerr << " .. " << r.tostring() ;
+      cerr << " " << b.tostring() << endl ;
    }
 } edges_inst ;
 
@@ -510,9 +513,9 @@ void runtestscript(const char *testscript) {
    for (;;) {
      cerr << flush ;
      if (cmdfile == stdin)
-       cout << "bgolly> " << flush ;
+       cerr << "bgolly> " << flush ;
      else
-       cout << flush ;
+       cerr << flush ;
      if (fgets(cmdline, MAXCMDLENGTH, cmdfile) == 0)
         break ;
      cmdbase::docmd(cmdline) ;
@@ -521,12 +524,12 @@ void runtestscript(const char *testscript) {
 }
 
 int main(int argc, char *argv[]) {
-   cout << "This is bgolly " STRINGIFY(VERSION) " Copyright 2005-2019 The Golly Gang."
+   cerr << "This is bgolly " STRINGIFY(VERSION) " Copyright 2005-2019 The Golly Gang."
         << endl ;
-   cout << "-" ;
+   cerr << "-" ;
    for (int i=0; i<argc; i++)
-      cout << " " << argv[i] ;
-   cout << endl << flush ;
+      cerr << " " << argv[i] ;
+   cerr << endl << flush ;
    qlifealgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
    hlifealgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
    generationsalgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
@@ -579,7 +582,11 @@ case 's':
    if (argc > 2)
       usage("Extra stuff after pattern argument") ;
    if (outfilename) {
-      if (endswith(outfilename, ".rle")) {
+      if (!strcmp(outfilename, "stdout")) {
+        fprintf(stderr, "Using standard output!\n");
+        useStdout = true;
+        outputisxrle = 1;
+      } else if (endswith(outfilename, ".rle")) {
       } else if (endswith(outfilename, ".mc")) {
          outputismc = 1 ;
 #ifdef ZLIB
@@ -595,7 +602,7 @@ case 's':
          outputgzip = 1 ;
 #endif
       } else {
-         lifefatal("Output filename must end with .rle or .mc.") ;
+         lifefatal("Output filename must be 'stdout', or end with .rle or .mc.") ;
       }
       if (strlen(outfilename) > 200)
          lifefatal("Output filename too long") ;
@@ -648,21 +655,21 @@ case 's':
    int fc = 0 ;
    for (;;) {
       if (benchmark)
-         cout << timestamp() << " " ;
+         cerr << timestamp() << " " ;
       else
          timestamp() ;
       if (quiet < 2) {
-         cout << imp->getGeneration().tostring() ;
+         cerr << imp->getGeneration().tostring() ;
          if (!quiet) {
             const char *s = imp->getPopulation().tostring() ;
             if (benchmark) {
-               cout << endl ;
-               cout << timestamp() << " pop " << s << endl ;
+               cerr << endl ;
+               cerr << timestamp() << " pop " << s << endl ;
             } else {
-               cout << ": " << s << endl ;
+               cerr << ": " << s << endl ;
             }
          } else
-            cout << endl ;
+            cerr << endl ;
       }
       if (popcount)
          imp->getPopulation() ;
@@ -684,14 +691,14 @@ case 's':
       imp->step() ;
       if (boundedgrid && !imp->DeleteBorderCells()) break ;
       if (timeline) imp->extendtimeline() ;
-      if (maxgen < 0 && outfilename != 0)
+      if (!useStdout && maxgen < 0 && outfilename != 0)
          writepat(fc++) ;
       if (timeline && imp->getframecount() + 2 > MAX_FRAME_COUNT)
          imp->pruneframes() ;
       if (hyperxxx)
          imp->setIncrement(imp->getGeneration()) ;
    }
-   if (maxgen >= 0 && outfilename != 0)
+   if (useStdout || (maxgen >= 0 && outfilename != 0))
       writepat(-1) ;
    exit(0) ;
 }

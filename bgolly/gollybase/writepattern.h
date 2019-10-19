@@ -23,6 +23,6 @@ const char *writepattern(const char *filename,
                          lifealgo &imp,
                          pattern_format format,
                          output_compression compression,
-                         int top, int left, int bottom, int right);
+                         int top, int left, int bottom, int right, bool useStdout = false);
 
 #endif
