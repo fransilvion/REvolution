@@ -25,12 +25,3 @@ popMutation <- function(org_population, md = c("constant", "poisson"), mut_rate_
   return(list_of_org)
 
 }
-
-glider_pop <- population(organisms= list(glider, glider), fitness = c(NA,NA) )
-
-glider_pop@organisms[1]
-gliders_G0@organisms[1]
-
-popMutation(glider_pop, md = c("constant"), 0.5)
-popMutation(gliders_G0, md = c("constant"), 0.5)
-
