@@ -132,7 +132,7 @@ char *liferule = 0 ;
 char *outfilename = 0 ;
 char *renderscale = (char *)"1" ;
 char *testscript = 0 ;
-int outputgzip, outputismc ;
+int outputgzip, outputisxrle, outputismc ;
 int numberoffset ; // where to insert file name numbers
 options options[] = {
   { "-m", "--generation", "How far to run", 'I', &maxgen },
@@ -146,7 +146,7 @@ options options[] = {
   { "-s", "--search", "Search directory for .rule files", 's', &user_rules },
   { "-h", "--hashlife", "Use Hashlife algorithm", 'b', &hashlife },
   { "-a", "--algorithm", "Select algorithm by name", 's', &algoName },
-  { "-o", "--output", "Output file (*.rle, *.mc, *.rle.gz, *.mc.gz)", 's',
+  { "-o", "--output", "Output file (*xrle, *.rle, *.mc, *.rle.gz, *.mc.gz)", 's',
                                                                &outfilename },
   { "-v", "--verbose", "Verbose", 'b', &verbose },
   { "-t", "--timeline", "Use timeline", 'b', &timeline },
@@ -205,8 +205,17 @@ void writepat(int fc) {
    imp->findedges(&t, &l, &b, &r) ;
    if (!outputismc && (t < -MAXRLE || l < -MAXRLE || b > MAXRLE || r > MAXRLE))
       lifefatal("Pattern too large to write in RLE format") ;
+   pattern_format output_type;
+   if (outputismc) {
+     output_type = MC_format;
+   } else if (outputisxrle) {
+     output_type = XRLE_format;
+   }
+   else {
+   output_type = RLE_format;
+   }
    const char *err = writepattern(thisfilename, *imp,
-                                  outputismc ? MC_format : RLE_format,
+                                  output_type,
                                   outputgzip ? gzip_compression : no_compression,
                                   t.toint(), l.toint(), b.toint(), r.toint()) ;
    if (err != 0)
@@ -575,6 +584,11 @@ case 's':
          outputismc = 1 ;
 #ifdef ZLIB
       } else if (endswith(outfilename, ".rle.gz")) {
+         outputgzip = 1 ;
+      } else if (endswith(outfilename, ".xrle")) {
+         outputisxrle = 1;
+      } else if (endswith(outfilename, ".xrle.gz")) {
+         outputisxrle = 1;
          outputgzip = 1 ;
       } else if (endswith(outfilename, ".mc.gz")) {
          outputismc = 1 ;
