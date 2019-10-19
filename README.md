@@ -1,6 +1,6 @@
 # Game of Evolution
 
-In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life), a simple set or rules give rise to meta-stable entities termed Cellular Automata (CA). Fundamentally, CA are a form of intelligently designed  complexity, in contrast to natural life which is the product of  evolution. We are creating a "Game of Evolution", in which randomly  generated CA will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
+In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life), a simple set or rules give rise to meta-stable entities termed Cellular Automata (CA). Fundamentally, CA are a form of intelligently designed complexity, in contrast to natural life which is the product of  evolution. We are creating a "Game of Evolution", in which randomly generated CA will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
 
 ![Alt Text](https://matthewdharriscom.files.wordpress.com/2016/02/gol1b.gif)
 
@@ -19,7 +19,7 @@ In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Lif
 
 1. The universe is Conway's Game of Life (see above).
 
-2. All initial states ('organisms') of the system must be randomly set.
+2. We begin with N organisms, with a 
 
 3. The objective is to design an environment which elicites a response from the set of all possible organisms.
 
