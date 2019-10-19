@@ -66,7 +66,7 @@ These four steps form one "generation".
 
 Typically, thousands (or in the case of humans billions) of generations occur to 'solve' an environment.
 
-![Alt Text](https://raw.githubusercontent.com/fransilvion/REvolution/master/img/Game_of_evolution.png)
+![Alt Text](https://raw.githubusercontent.com/fransilvion/REvolution/master/img/game_of_evolutions.png)
 
 ## An example environment
 
