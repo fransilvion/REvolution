@@ -1,6 +1,6 @@
 Package: REvolution
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Game of Evolution
+Version: 0.0.0.1
 Authors@R: 
     person(given = "First",
            family = "Last",
@@ -8,6 +8,10 @@ Authors@R:
            email = "first.last@example.com")
 Description: What the package does (one paragraph).
 License: What license it uses
+Imports:
+    ggplot2,
+    Matrix,
+    reshape2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1.9000

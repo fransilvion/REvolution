@@ -30,32 +30,43 @@ Mutation <- function(org_bin_matr, md = c("constant", "guassian", "poisson"), mu
   if(md == "constant"){
     mut_rate = mut_rate_avg
   }
-  if(md == "gaussian") {
-    if(is.null(mut_rate_sd)) {
-      return("Define mut_rate_sd if Gaussian mutation distribution selected.")
-      break}
-    mut_rate = rnorm(1, mut_rate_avg, mut_rate_sd)
-  }
+  #if(md == "gaussian") {
+  #  if(is.null(mut_rate_sd)) {
+  #    return("Define mut_rate_sd if Gaussian mutation distribution selected.")
+  #    break}
+  #  mut_rate = rnorm(1, mut_rate_avg, mut_rate_sd)
+  #}
   if(md == "poisson") {
     mut_rate = rpois(1, length(org_mut)*mut_rate_avg)/length(org_mut)
 
   }
+  # Determine indices to mutate
+  idx <- sample(1:length(org_mut), mut_rate*length(org_mut), replace = FALSE)
+
+  # Mutate organism
+  for (i in idx) {
+    if(org_mut[i] == TRUE){
+      org_mut[i] = FALSE
+    } else {
+      org_mut[i] = TRUE
+    }
+  }
 
   # Mutate the organism
-  for (i in 1:length(org_mut)) {
-    curr = org_mut[i]
-    mut = sample(c(TRUE, FALSE), 1, replace = TRUE, prob = c(mut_rate, 1-mut_rate))
-    if(mut == FALSE) {
-      next}
-    if(mut == TRUE & curr == FALSE) {
-      org_mut[i] = TRUE }
-    if(mut == TRUE & curr == TRUE) {
-      org_mut[i] = FALSE }
-  }
+#  for (i in 1:length(org_mut)) {
+#    curr = org_mut[i]
+#    mut = sample(c(TRUE, FALSE), 1, replace = TRUE, prob = c(mut_rate, 1-mut_rate))
+#    if(mut == FALSE) {
+#      next}
+#    if(mut == TRUE & curr == FALSE) {
+#      org_mut[i] = TRUE }
+#    if(mut == TRUE & curr == TRUE) {
+#      org_mut[i] = FALSE }
+#  }
 
   org_mut <- matrix(org_mut, ncol = ncol(org_bin_matr@cells), nrow = nrow(org_bin_matr@cells))
   org_mut <- organism(cells = org_mut)
   return(org_mut)
 }
 
-#mutation(glider, md = c("constant"), 0.1, mut_rate_sd= NULL)
+#Mutation(glider, md = c("constant"), 0.5, mut_rate_sd= NULL)
