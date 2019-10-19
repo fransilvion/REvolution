@@ -30,7 +30,7 @@ population <- setClass(Class = "population", representation(organisms = "list", 
 # glider <- organism(cells = glider_logical)
 #
 # # Inverse of the glider above
-# glider_inv <- !attr(glider, "cells")
+# glider_inv <-  organism(cells = !attr(glider, "cells"))
 #
 # gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
 
