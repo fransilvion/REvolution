@@ -69,4 +69,4 @@ Mutation <- function(org_bin_matr, md = c("constant", "guassian", "poisson"), mu
   return(org_mut)
 }
 
-Mutation(glider, md = c("constant"), 0.5, mut_rate_sd= NULL)
+#Mutation(glider, md = c("constant"), 0.5, mut_rate_sd= NULL)
