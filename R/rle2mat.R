@@ -50,7 +50,6 @@ rle2mat <- function(file_path) {
         z$lengths <- as.numeric(unlist(strsplit(gsub("[o/b/!]", " ", tmp_cell[[1]][1]), " ")))
         z$lengths <- z$lengths[!is.na(z$lengths)]
         z$values <- rep(c(cell_start,!cell_start), times = ceiling(length(z$lengths)/2))[1:length(z$lengths)]
-        z
         cells_occ = inverse.rle(z)
         organism_l[i,1:length(cells_occ)] = cells_occ
         if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
