@@ -146,7 +146,7 @@ options options[] = {
   { "-s", "--search", "Search directory for .rule files", 's', &user_rules },
   { "-h", "--hashlife", "Use Hashlife algorithm", 'b', &hashlife },
   { "-a", "--algorithm", "Select algorithm by name", 's', &algoName },
-  { "-o", "--output", "Output file (*.rle, *.mc, *.rle.gz, *.mc.gz)", 's',
+  { "-o", "--output", "Output file (*xrle, *.rle, *.mc, *.rle.gz, *.mc.gz)", 's',
                                                                &outfilename },
   { "-v", "--verbose", "Verbose", 'b', &verbose },
   { "-t", "--timeline", "Use timeline", 'b', &timeline },
@@ -587,6 +587,9 @@ case 's':
          outputgzip = 1 ;
       } else if (endswith(outfilename, ".xrle")) {
          outputisxrle = 1;
+      } else if (endswith(outfilename, ".xrle.gz")) {
+         outputisxrle = 1;
+         outputgzip = 1 ;
       } else if (endswith(outfilename, ".mc.gz")) {
          outputismc = 1 ;
          outputgzip = 1 ;
