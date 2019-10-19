@@ -29,8 +29,19 @@ Fitness <- function(inOrg, fun = "max_x"){
     # TODO: This considers an 'organism' as only what
     # is defined by the matrix
     #
-    # Since they can be offset in an otherwise empty
-    # area, this does not account for that.
+    # The `Shift` in organism is the "POS" offset
+    # in extended RLE files from bgolly
+    #
+    # POS is the TOP-LEFT corner of the output matrix
+    #
+    #
+    fit <- max( which(colSums(inOrg_l) > 0) )
+    fit <- fit + x_shift
+
+  } else if (fun == "env0"){
+    # Fitness Function -- Environment 1
+    # Optimize for EAST movement
+    # Exponential Cost for N/S deviation
     fit <- max( which(colSums(inOrg_l) > 0) )
     fit <- fit + x_shift
 
@@ -44,17 +55,12 @@ Fitness <- function(inOrg, fun = "max_x"){
     #     3 ->  0
     #     4 ->  -1
     #     5 ->  -2
-    #
 
-    y_values <- nrow(inOrg_l):1 - y_shift
+    y_values <- nrow(inOrg_l):1 - (y_shift + 1)
     cost <- abs( y_values[ max( which(rowSums(inOrg_l) > 0) ) ] )
 
     fit <- fit - cost^2
 
-  } else if (fun == "env0"){
-    # Fitness Function -- Environment 1
-    # Optimize for EAST movement
-    # Exponential Cost for N/S deviation
 
   } else {
     stop("Error: Fitness evaluation function 'fun' was not found.")
