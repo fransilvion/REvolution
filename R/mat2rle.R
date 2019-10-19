@@ -1,22 +1,31 @@
-#' rle2mat
+#' mat2rle
 #'
-#' pattern reading function
-#' read a .rle pattern file and convert it to I x J matrix
+#' function that writes the organism cell matrix with golly pattern into rle file
 #'
-#' Accepts a .rle pattern file
-#' and returns a `organism` object
+#' Accepts an object of class matrix and file name
+#' and saves the matrix in the rle file format (with the given gile name)
 #'
-#' @param file_path full path of pattern file along with the name
+#' @param organism object of class organism
+#' @param fileName name of the new file with the pattern
 #'
-#' @return An organism-class object
+#' @return None. Saves the organism matrix into file
 #'
 #' @examples
 #'
-#' # Create a 9x9 matrix with 50% "on" density
-#' rle2mat(file_path)
+#' # Save glider organism object into rle file named CoolOrganism.rle
+#'
+#' glider_logical <- matrix( data = c(F,T,F,
+#' F,F,T,
+#' T,T,T), nrow = 3, byrow = T)
+#'
+#' glider <- organism(cells = glider_logical)
+#'
+#' mat2rle(glider, "CoolOrganism.rle")
 #'
 #' @export
-mat2rle <- function(mat, fileName){
+mat2rle <- function(organism, fileName){
+  mat <- organism@cells
+  mat <- mat*1
   x = ncol(mat)
   y = nrow(mat)
 
@@ -47,33 +56,4 @@ mat2rle <- function(mat, fileName){
   fileConn<-file(fileName)
   writeLines(all_lines, fileConn)
   close(fileConn)
-
 }
-
-test <- matrix(c(0,0,1,0,0,0,1,0,1,1,1,0), nrow = 4, ncol = 3, byrow=T)
-test[test == 0] <- "b"
-test[test == 1] <- "o"
-
-mat <- apply(test, 1, function(x){
-  rle_res <- rle(x)
-  first <- unlist(rle_res["lengths"])
-  second <- unlist(rle_res["values"])
-  line <- paste(paste0(first, second), collapse="")
-  line <- paste0(line, "$", collapse="")
-  return(line)
-})
-
-x <- paste0(mat, collapse="")
-res <- gsub('.{1}$', '!', x)
-
-test[test == 0] <- "b"
-test[test == 1] <- "o"
-rle_res <- rle(test[3,])
-first <- unlist(rle_res["lengths"])
-second <- unlist(rle_res["values"])
-line <- paste(paste0(first, second), collapse="")
-line <- paste0(line, "$", collapse="")
-
-rle(test[1,])
-
-sprintf("x = %s, y = %s, rule = B3/S23", x, y)
