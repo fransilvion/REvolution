@@ -4,8 +4,7 @@
 \alias{popMutation}
 \title{mutation}
 \usage{
-popMutation(org_population, md = c("constant", "guassian", "poisson"),
-  mut_rate_avg, mut_rate_sd = NULL)
+popMutation(org_population, md = c("constant", "poisson"), mut_rate_avg)
 }
 \arguments{
 \item{file_path}{}

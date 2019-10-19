@@ -20,7 +20,7 @@
 #'
 
 plotFitness <- function(si_life, no_organisms) {
-  df <- data.frame(fitness = si_life@populations %>% purrr::map(~mean(.x@fitness)) %>% unlist(),
+  df <- data.frame(fitness = si_life@populations %>% purrr::map(~max(.x@fitness)) %>% unlist(),
                    #org_number = rep(1:no_organisms, length(si_life@populations)),
                    gen = si_life@G)
   df[is.na(df)] <- 0
