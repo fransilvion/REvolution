@@ -50,10 +50,10 @@ Sex = function(organism1, organism2, SD){
   return(MatOut)
 }
 
-MatIn1 = matrix(1,10,10)
-MatIn2 = matrix(0,10,10)
+#MatIn1 = matrix(1,10,10)
+#MatIn2 = matrix(0,10,10)
 
-MatOut = Sex(MatIn1, MatIn2, 7)
+#MatOut = Sex(MatIn1, MatIn2, 7)
 
 
 
