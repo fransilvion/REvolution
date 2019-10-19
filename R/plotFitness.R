@@ -20,12 +20,12 @@
 #'
 
 plotFitness <- function(si_life, no_organisms) {
-  df <- data.frame(fitness = si_life@populations %>% purrr::map(~.x@fitness) %>% unlist(),
-                   org_number = rep(1:no_organisms, length(si_life@populations)),
-                   gen = rep(si_life@G, no_organisms) %>% sort())
+  df <- data.frame(fitness = si_life@populations %>% purrr::map(~mean(.x@fitness)) %>% unlist(),
+                   #org_number = rep(1:no_organisms, length(si_life@populations)),
+                   gen = si_life@G)
   df[is.na(df)] <- 0
 
-  ggplot(df, aes(x = gen, y = fitness, group = org_number)) +
+  ggplot(df, aes(x = gen, y = fitness)) +
     geom_line() +
     scale_x_continuous(limits = c(0,max(df$gen)), breaks = seq(0,max(df$gen),1), labels= paste0("G", unique(c(df$gen))))
 
