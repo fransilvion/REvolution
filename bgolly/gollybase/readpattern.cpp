@@ -30,6 +30,7 @@ gzFile zinstream ;
 #else
 FILE *pattfile ;
 #endif
+bool useStdin = false;
 
 char filebuff[BUFFSIZE];
 int buffpos, bytesread, prevchar;
@@ -39,6 +40,7 @@ long filesize;             // length of file in bytes
 // use buffered getchar instead of slow fgetc
 // don't override the "getchar" name which is likely to be a macro
 int mgetchar() {
+   if (useStdin) return getchar();
    if (buffpos == BUFFSIZE) {
       double filepos;
       #ifdef ZLIB
@@ -766,21 +768,24 @@ const char *build_err_str(const char *filename) {
 }
 
 const char *readpattern(const char *filename, lifealgo &imp) {
-   filesize = getfilesize(filename);
+    filesize = getfilesize(filename);
+    fprintf(stderr, "Filename provided was %s", filename);
+    useStdin = !strcmp(filename, "stdin");
+    if (!useStdin) {
+      fprintf(stderr, "(use 'stdin' to read from standard input [/dev/stdin on unix also works])");
+    }
+    fprintf(stderr, "\n");
+    if (useStdin) {
+      return loadpattern(imp);
+    }
 #ifdef ZLIB
-   zinstream = gzopen(filename, "rb") ;      // rb needed on Windows
-   if (zinstream == 0)
+    zinstream = gzopen(filename, "rb") ;      // rb needed on Windows
+    if (zinstream == 0)
       return build_err_str(filename) ;
 #else
-   fprintf(stderr, "Filename provided was %s\n", filename)
-   if (strcmp(filename, "stdin")) {
-      pattfile = fopen(filename, "r") ;
-      if (pattfile == 0)
-        return build_err_str(filename) ;
-   } else {
-      fprintf(stderr, "Using standard input.\n");
-      pattfile = stdin;
-   }
+    pattfile = useStdin ? stdin : fopen(filename, "r") ;
+    if (pattfile == 0)
+      return build_err_str(filename) ;
    
 #endif
    buffpos = BUFFSIZE;                       // for 1st getchar call
