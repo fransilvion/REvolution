@@ -6,9 +6,9 @@
 #' Accepts a binary matrix
 #' and returns a `organism` object
 #'
-#' @param org_bin_matr
-#' @param md
-#' @param mut_rate_avg
+#' @param org_bin_matr tmp
+#' @param md  tmp
+#' @param mut_rate_avg tmp
 #'
 #' @return An organism-class object
 #'

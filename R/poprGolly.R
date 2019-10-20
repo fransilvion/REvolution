@@ -3,29 +3,29 @@
 #'
 #'
 #'
-#' @param org_population
-#' @param bgolly_path
-#' @param input_rle
-#' @param input_organism
-#' @param output
-#' @param generation
-#' @param stepsize
-#' @param maxmemory
-#' @param maxtime
-#' @param benchmark
-#' @param exponential
-#' @param rule
-#' @param search
-#' @param hashlife
-#' @param algorithm
-#' @param verbose
-#' @param timeline
-#' @param render
-#' @param progress
-#' @param popcount
-#' @param scale
-#' @param autofit
-#' @param exec
+#' @param org_population tmp
+#' @param bgolly_path tmp
+#' @param input_rle tmp
+#' @param input_organism tmp
+#' @param output tmp
+#' @param generation tmp
+#' @param stepsize tmp
+#' @param maxmemory tmp
+#' @param maxtime tmp
+#' @param benchmark tmp
+#' @param exponential tmp
+#' @param rule tmp
+#' @param search tmp
+#' @param hashlife tmp
+#' @param algorithm tmp
+#' @param verbose tmp
+#' @param timeline tmp
+#' @param render tmp
+#' @param progress tmp
+#' @param popcount tmp
+#' @param scale tmp
+#' @param autofit tmp
+#' @param exec tmp
 #'
 #' @return None yet
 #'

@@ -6,9 +6,9 @@
 #' Accepts list of binary matrix
 #' and returns a list of `organism`
 #'
-#' @param org_population
-#' @param md
-#' @param mut_rate_avg
+#' @param org_population tmp
+#' @param md tmp
+#' @param mut_rate_avg tmp
 #'
 #' @return A list of organism-class object
 #'
