@@ -6,7 +6,7 @@
 #' Accepts a binary matrix
 #' and writes a organism.rle file as output
 #'
-#' @param organism_l a binary I x J matrix
+#' @param organism_l an organism object
 #'
 #' @return NULL
 #'
@@ -15,7 +15,8 @@
 #' mat2rle(organism_l)
 #'
 #' @export
-mat2rle <- function(organism_l) {
+mat2rle_2 <- function(organism_l, fileName) {
+    organism_l <- organism_l@cells
     pattern_matrix = organism_l
     shift_l <- c( -nrow(organism_l)%/%2, -ncol(organism_l)%/%2)
     #pattern_matrix = organism_l
@@ -78,15 +79,15 @@ mat2rle <- function(organism_l) {
     rle_str = gsub("b1o","bo", rle_str)
     rle_str = gsub("o\\$!","o!", rle_str)
     rle_str = gsub("o1\\$","o$", rle_str)
-    
+
     # Write a .rle file
     x_len = ncol(pattern_matrix)
     y_len = nrow(pattern_matrix)
     pos_str = paste0("#CXRLE Pos=", pos)
     dim_str = paste0("x = ", x_len, ", y = ", y_len,", rule = B3/S23")
-    cat(pos_str,dim_str,rle_str,file="organism.rle",append=F, sep = "\n")
+    cat(pos_str,dim_str,rle_str,file=fileName,append=F, sep = "\n")
     return()
 }
-file_path = "./test.rle"
-organism_l = rle2mat(file_path = file_path)
-mat2rle(organism_l)
+#file_path = "./test.rle"
+#organism_l = rle2mat(file_path = file_path)
+#mat2rle(organism_l)

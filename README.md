@@ -1,10 +1,9 @@
 # Game of Evolution
 
-In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life), a simple set or rules give rise to meta-stable entities termed Cellular Automata (CA). Fundamentally, CA are a form of intelligently designed complexity, in contrast to natural life which is the product of  evolution. We are creating a "Game of Evolution", in which randomly generated CA will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
+In Game of Evolution, each "organism" is a randomly generated instance of the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life), where a simple set or rules give rise to meta-stable entities termed Cellular Automata (CA). The organisms will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
 
-![Alt Text](https://matthewdharriscom.files.wordpress.com/2016/02/gol1b.gif)
-
-## Rules of the Game of Life
+## First we start with Game of Life
+An organism is made up of many cells, which follows these set of rules: 
 
 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 
@@ -14,6 +13,7 @@ In the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Lif
 
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
+#### Simple examples: 
    
 ## Rules of the Game of Evolution
 

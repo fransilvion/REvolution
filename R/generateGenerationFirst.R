@@ -1,14 +1,16 @@
-#' generation
+#' generateGenerationFirst
 #'
+#' function that generates population of initial organisms for Game of Evolution
 #'
+#' @param gridsize - vector of length 2: number of rows and number of columns
+#' @param density - density of active cells
+#' @param numOfOrganisms - number of organisms
+#' @param folderName - output folder
 #'
-#' @param
-#' @param
-#'
-#' @return
+#' @return returns population object with generated random organisms
 #'
 #' @examples
-#'
+#' popG0 <- generateGenerationFirst(c(100,100), 0.5, 100, "~/Desktop/test_bgolly/G0")
 
 #' @export
 generateGenerationFirst <- function(gridsize, density, numOfOrganisms, folderName){
