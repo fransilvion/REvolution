@@ -23,6 +23,12 @@ Fitness <- function(inOrg, fun = "max_x"){
   x_shift <- inOrg@shift[1]
   y_shift <- inOrg@shift[2]
 
+  #if matrix is of size 1,1 and has False - return -Inf
+  if ((all(dim(inOrg_l) == c(1,1))) & (inOrg_l[1,1] == FALSE)){
+    fit <- -Inf
+    return(fit)
+  }
+
   if (fun == "max_x"){
     # fit is the largest X value
     # with a living cell
@@ -60,6 +66,12 @@ Fitness <- function(inOrg, fun = "max_x"){
     cost <- abs( y_values[ max( which(rowSums(inOrg_l) > 0) ) ] )
 
     fit <- fit - cost^2
+
+
+  } else if (fun == "sum"){
+    #sum of all elements in the matrix
+
+    fit <- sum(inOrg_l)
 
 
   } else {

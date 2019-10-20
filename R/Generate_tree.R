@@ -2,30 +2,31 @@
 #'
 #' Given a population with recorded fitness.
 #' Select best Y portion and repopulate.
+#' Requres ape library
 #'
-#'
-#' @param ancestery A data frame matrix containing maternal line information (columns) for generations (rows)
-#' @param final_gen A population object conatining the final generation post selection
+#' @param ancestery An ancestery object for the population
 #' @param warnings Boolean for warning gneration (Default = TRUE)
 #'
 #' @return A phylogentic tree object for plotting
 #'
 #' @examples
-#' Tree <- Generate_tree(Ancestery, Gen_N)
+#' Tree <- Generate_tree(Ancestery)
 #' plot(Tree)
 #'
 #'
 #' @export
 
 
-Generate_tree<- function(ancestery, final_gen, warnings=TRUE){
+Generate_tree<- function(inANS, warnings=TRUE){
   #Requires ape library
   require('ape')
   
   #Initalise history from final generation selection
-  hist <- as.data.frame(cbind(unique(final_gen@maternal_line)))
+  ancestery <- inANS@map
+  hist <- as.data.frame(cbind(unique(ancestery[nrow(ancestery),])))
   colnames(hist) <- c("last")
-  idx <- cbind(seq(1,length(unique(final_gen@maternal_line))))
+  idx <- cbind(seq(1,length(unique(ancestery[nrow(ancestery),]))))
+  ancestery <- ancestery[-c(nrow(ancestery)),]
   
   #Populate history
   for(g in seq(nrow(ancestery),1)){
@@ -77,8 +78,8 @@ Generate_tree<- function(ancestery, final_gen, warnings=TRUE){
   #Generate tree from string and return
   return(read.tree(text = str))
 }
-
-
+tree2 <- Generate_tree(df)
+plot(tree2)
 #Example plots for ape
 #Phylogram
 #plot(tree)
