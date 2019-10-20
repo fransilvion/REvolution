@@ -1,6 +1,7 @@
 #' Generate_tree
 #'
 #' Given an ancestey object generate a phylogenetic tree
+#' #Requires ape
 #'
 #' @param ancestry An ancestey object for the population
 #' @param warnings Boolean for warning gneration (Default = TRUE)
