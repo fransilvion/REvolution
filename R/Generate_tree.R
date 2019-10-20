@@ -1,8 +1,6 @@
 #' Generate_tree
 #'
-#' Given a population with recorded fitness.
-#' Select best Y portion and repopulate.
-#' Requres ape library
+#' Given an ancestery object generate a phylogenetic tree
 #'
 #' @param ancestery An ancestery object for the population
 #' @param warnings Boolean for warning gneration (Default = TRUE)
