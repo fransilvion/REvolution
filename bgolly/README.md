@@ -23,3 +23,6 @@ note: maxgen defaults to 0 if unspecified
 - demo: stub, returns 0
 - pop: the number of live cells
 - right: max\_xpos - max\_abs\_y^2
+
+#### eg. population fitness after 100 iterations
+./bgolly -m 100 -F pop -o stdout stdin

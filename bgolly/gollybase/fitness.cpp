@@ -12,7 +12,7 @@ using namespace std;
 typedef function<void(lifealgo&, ostream&)> Fitness;
 
 void demo(lifealgo& imp, ostream& out) {
-  out << "A demo!" << endl;
+  out << 0 << endl;
 }
 
 void rightFitness(lifealgo& imp, ostream& out) {
