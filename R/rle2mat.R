@@ -36,7 +36,6 @@ rle2mat <- function(file_path) {
   len_x = as.numeric(strsplit(pattern[loc[1]],",")[[1]][1])
   len_y = as.numeric(strsplit(pattern[loc[2]],",")[[1]][1])
   # Get coordinates of live cells
-  #cells = strsplit(pattern[12:length(pattern)], split = "\\$", perl = T)
   cells = paste(pattern[loc[3]:length(pattern)], collapse = "")
   cell_lines = unlist(strsplit(cells, "\\$"))
   # Construct matrix for organism
@@ -56,17 +55,19 @@ rle2mat <- function(file_path) {
     tmp_cell = gsub("bo", replacement = "b1o", tmp_cell)
     tmp_cell = gsub("ob", replacement = "o1b", tmp_cell)
     tmp_cell = gsub("!", replacement = "", tmp_cell)
+    if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
+        {
+          tmp_l = strsplit(gsub("[o/b]", " ", tmp_cell)," ")[[1]]
+          empty_row = as.numeric(tmp_l[length(tmp_l)])-1
+          tmp_cell = substr(tmp_cell,1,nchar(tmp_cell)-nchar(tmp_l[length(tmp_l)]))
+        } else {empty_row = 1}
     z <- list()
     z$lengths <- as.numeric(unlist(strsplit(gsub("[o/b/!]", " ", tmp_cell[[1]][1]), " ")))
     z$lengths <- z$lengths[!is.na(z$lengths)]
     z$values <- rep(c(cell_start,!cell_start), times = ceiling(length(z$lengths)/2))[1:length(z$lengths)]
     cells_occ = inverse.rle(z)
     organism_l[i,1:length(cells_occ)] = cells_occ
-    if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
-    {
-      empty_row = as.numeric(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell)))
-      i = i+empty_row
-    } else {empty_row = 0;i=i+1 }
+    i = i+empty_row
   }
 
   shift_l <- c( -nrow(organism_l)%/%2, -ncol(organism_l)%/%2)
