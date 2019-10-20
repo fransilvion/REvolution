@@ -43,8 +43,11 @@ rle2mat <- function(bgolly_object) {
         num_hash = num_hash + 1
       }
   }
-  loc=loc+num_hash-1
-  #pos = strsplit(pattern[pos_loc],"=")[[1]][2]
+  if(num_hash!=0)
+  {
+     loc=loc+num_hash-1
+  }
+   #pos = strsplit(pattern[pos_loc],"=")[[1]][2]
   # Get dimensions of the organism
   dim = strsplit(pattern[loc[1]],",")
   len_x = as.numeric(strsplit(dim[[1]][1]," = ")[[1]][2])
