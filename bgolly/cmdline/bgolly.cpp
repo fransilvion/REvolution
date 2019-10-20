@@ -129,7 +129,7 @@ int hyperxxx ;   // renamed hyper to avoid conflict with windows.h
 int render, autofit, quiet, popcount, progress ;
 int hashlife ;
 char *algoName = 0 ;
-char *fitnessType = NULL;
+char *fitnessType = 0 ;
 int verbose ;
 int timeline ;
 int stepthresh, stepfactor ;
@@ -544,6 +544,7 @@ int main(int argc, char *argv[]) {
    ltlalgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
    jvnalgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
    ruleloaderalgo::doInitializeAlgoInfo(staticAlgoInfo::tick()) ;
+   bool displayFitnessUsage = false;
    while (argc > 1 && argv[1][0] == '-') {
       argc-- ;
       argv++ ;
@@ -571,8 +572,14 @@ case 'b':
              (*(int *)options[i].data) += 1 ;
              break ;
 case 's':
-             if (argc < 2)
-                lifefatal("Bad option argument") ;
+             if (argc < 2) {
+                if (options[i].shortopt && !strcmp(options[i].shortopt, "-F")) {
+                  displayFitnessUsage = true;
+                } else {
+                  lifefatal("Bad option argument") ;
+                }
+                break;
+             }
              *(char **)options[i].data = argv[1] ;
              argc-- ;
              argv++ ;
@@ -594,13 +601,21 @@ case 's':
         exit(-1);
       }
       useStdout = true;
-      // validate fitness
+      if (maxgen == -1) {
+        fprintf(stderr, "No max generation specified!! Evaluating fitness function at gen 0.\n");
+        maxgen = 0;
+      }
    }
    if (argc < 2 && !testscript)
       usage("No pattern argument given") ;
    if (argc > 2)
       usage("Extra stuff after pattern argument") ;
-   if (!useStdout || outfilename) {
+   if (displayFitnessUsage) {
+      fprintf(stderr, "Specify a fitness function!\n");
+      listFitnessOptions();
+      exit(-1);
+   }
+   if (!useStdout && outfilename) {
       if (!strcmp(outfilename, "stdout")) {
         fprintf(stderr, "Using standard output!\n");
         useStdout = true;
