@@ -19,7 +19,7 @@ Pl_pc<- function(inANS){
   require('ggplot2')
   
   #Initalise origin map
-  ori <- inANS #@map
+  ori <- inANS@map
   
   #Itterate and alter generation to have same origin as previous
   for(x in range(2,nrow(ori))){
@@ -37,6 +37,9 @@ Pl_pc<- function(inANS){
       data <- rbind(data,c(x-1,y,length(which(ori[x,] == y))/ncol(ori)))
     }
   }
+
+  #Free up space
+  ori <- NA
   
   #Convert to data frame, chang orign to factor, and add names
   data <- as.data.frame(data)
