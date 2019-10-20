@@ -13,7 +13,9 @@
 #' @examples
 #'
 #'
-#'
+#' @import Matrix
+#' @import mvtnorm
+#' @import sparseMVN
 #'
 #' @export
 #'

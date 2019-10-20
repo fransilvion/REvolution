@@ -1,32 +1,21 @@
 Package: REvolution
 Title: Game of Evolution
 Version: 0.0.0.1
-Authors@R: 
-    person(given = "Artem",
-           family = "Babaian",
-           email = "ababaian@bccrc.ca")
-    person(given = "Gherman",
-           family = "Novakovsky",
-           email = "g.e.novakovsky@gmail.com")
-    person(given = "Arjun",
-           family = "Baghela")
-    person(given = "Abhijit",
-           family = "Chinchani")
-    person(given = "Vector",
-           family = "Chen")
-    person(given = "Caitlin",
-           family = "Finnigan")
-    person(given = "Eimly",
-           family = "Gong")
-    person(given = "SeungYun",
-           family = "Kim")
-    person(given = "Chris",
-           family = "Samson")
-    person(given = "Rachel",
-           family = "Topno")
+Authors@R: c(
+    person(given = "Artem",   family = "Babaian",    email = "ababaian@bccrc.ca",        role = c("cre", "aut")),
+    person(given = "Gherman", family = "Novakovsky", email = "g.e.novakovsky@gmail.com", role = "aut"),
+    person(given = "Arjun",   family = "Baghela",    role = "aut"),
+    person(given = "Abhijit", family = "Chinchani",  role = "aut"),
+    person(given = "Vector",  family = "Chen",       role = "aut"),
+    person(given = "Caitlin", family = "Finnigan",   role = "aut"),
+    person(given = "Emily",   family = "Gong",       role = "aut"),
+    person(given = "SeungYun",family = "Kim",        role = "aut"),
+    person(given = "Chris",   family = "Samson",     role = "aut"),
+    person(given = "Rachel",  family = "Topno",      role = "aut") )
 Description: R implementation of the "Game of Evolution". Evolve automota in Game of Life.
 License: GPLv2
 Imports:
+    ape,
     dplyr,
     ggplot2,
     magrittr,
@@ -36,9 +25,7 @@ Imports:
     plot.matrix,
     purrr,
     reshape2,
-    sparseMVN,
     utils
-    
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1.9000

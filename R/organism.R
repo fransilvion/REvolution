@@ -22,12 +22,12 @@
 #'
 #' @export
 organism <- setClass(Class = "organism", representation(cells = "matrix", shift = "vector" ))
-
-# Example of a glider encoded as logical matrix
-glider_logical <- matrix( data = c(F,T,F,
-                                   F,F,T,
-                                   T,T,T), nrow = 3, byrow = T)
-
-# Example of a glider encoded as an organism
-
-glider <- organism(cells = glider_logical, shift = c(-1,-1))
+#
+# # Example of a glider encoded as logical matrix
+# glider_logical <- matrix( data = c(F,T,F,
+#                                    F,F,T,
+#                                    T,T,T), nrow = 3, byrow = T)
+#
+# # Example of a glider encoded as an organism
+#
+# glider <- organism(cells = glider_logical, shift = c(-1,-1))

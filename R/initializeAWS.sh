@@ -40,6 +40,14 @@ make -f makefile-gtk
 #   .golly-code/bgolly
 #   This is bgolly 3.3
 
-# Return Homenst
+# Download REvolution repo
+git clone https://github.com/fransilvion/REvolution.git
+
+# Compile local version of bgolly
+cd REvolution/bgolly/gui-wx
+make -f makefile-gtk clean
+make -f makefile-gtk bgolly
+
+# ET go home
 cd ~/
 
