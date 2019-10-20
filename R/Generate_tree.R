@@ -17,11 +17,12 @@
 #' @export
 
 
-Generate_tree<- function(ancestery, warnings=TRUE){
+Generate_tree<- function(inANS, warnings=TRUE){
   #Requires ape library
   require('ape')
   
   #Initalise history from final generation selection
+  ancestery <- inANS@map
   hist <- as.data.frame(cbind(unique(ancestery[nrow(ancestery),])))
   colnames(hist) <- c("last")
   idx <- cbind(seq(1,length(unique(ancestery[nrow(ancestery),]))))
