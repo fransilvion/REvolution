@@ -4,28 +4,28 @@
 #'
 #'
 #'
-#' @param bgolly_path tmp
-#' @param input_rle tmp
-#' @param input_organism  tmp
-#' @param output tmp
-#' @param generation tmp
-#' @param stepsize tmp
-#' @param maxmemory tmp
-#' @param maxtime tmp
-#' @param benchmark tmp
-#' @param exponential tmp
-#' @param rule tmp
-#' @param search tmp
-#' @param hashlife tmp
-#' @param algorithm tmp
-#' @param verbose tmp
-#' @param timeline tmp
-#' @param render tmp
-#' @param progress tmp
-#' @param popcount tmp
-#' @param scale tmp
-#' @param autofit tmp
-#' @param exec tmp
+#' @param bgolly_path path to bgolly
+#' @param input_rle rle matrix
+#' @param input_organism  organism object
+#' @param output output file
+#' @param generation How far to run
+#' @param stepsize Step size
+#' @param maxmemory Max memory to use in megabytes
+#' @param maxtime Max duration
+#' @param benchmark Show timestamps
+#' @param exponential Use exponentially increasing steps
+#' @param rule Life rule to use
+#' @param search Search directory for .rule files
+#' @param hashlife Use Hashlife algorithm
+#' @param algorithm Select algorithm by name
+#' @param verbose Verbose
+#' @param timeline Use timeline
+#' @param render Render benchmarking
+#' @param progress Render during progress dialog debugging
+#' @param popcount Popcount benchmarking
+#' @param scale Rendering scale
+#' @param autofit Autofit before each render
+#' @param exec Run testing script
 #'
 #'
 #' @return None yet
