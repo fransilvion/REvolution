@@ -1,4 +1,4 @@
-#' ancestery - class definition
+#' ancestry - class definition
 #'
 #' For each geneartion (G_i) in the Game of Evolution
 #' The ancestry of organisms is stored as a matrix
@@ -14,7 +14,7 @@
 #'
 #' #Each row of the map in the ancestry object must be sorted in ascending order
 #' 
-#' ancestery_map <- ancestry( map = rbind(c(1,2,3,4,5),c(2,4,4,5,5)) )
+#' ancestry_map <- ancestry( map = rbind(c(1,2,3,4,5),c(2,4,4,5,5)) )
 #'
 #' @export
-ancestery <- setClass(Class = "ancestry", representation(map = "matrix"))
+ancestry <- setClass(Class = "ancestry", representation(map = "matrix"))
