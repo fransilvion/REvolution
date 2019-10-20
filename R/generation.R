@@ -1,57 +1,67 @@
-#' mat2rle
+#' generation
 #'
-#' function that writes the organism cell matrix with golly pattern into rle file
+#' function that runs one iteration of the genetic algorithm
 #'
-#' Accepts an object of class matrix and file name
-#' and saves the matrix in the rle file format (with the given gile name)
+#' @param  population - object of a class population
+#' @param  new_gen_folder - folder where to save the new organisms
+#' @param  prev_gen_folder - folder with organisms from the previous generation
+#' @param  iternumber - number of the generation
+#' @param  selecPor - ratio of organisms to select after fitness evaluation
 #'
-#' @param organism object of class organism
-#' @param fileName name of the new file with the pattern
-#'
-#' @return None. Saves the organism matrix into file
+#' @return mutated population and saves it in the files
 #'
 #' @examples
 #'
-#' # Save glider organism object into rle file named CoolOrganism.rle
-#'
-#' glider_logical <- matrix( data = c(F,T,F,
-#' F,F,T,
-#' T,T,T), nrow = 3, byrow = T)
-#'
-#' glider <- organism(cells = glider_logical)
-#'
-#' mat2rle(glider, "CoolOrganism.rle")
-#'
 #' @export
-generation <- function(populationFolder){
-  #OFFSPRING
 
-  mat2rle()
-  #bgolly function run system('bash -c "ls /"')
+popG0 <- generateGenerationFirst(c(10,10), 0.5, 10, "~/Desktop/test_bgolly/G0")
+
+generation <- function(population, new_gen_folder="G", prev_gen_folder, iternumber=1, selecPor = 0.1){
+
+  #CREATE A FOLDER FOR NEW GENERATION
+  dir.create(paste(new_gen_folder, iternumber, sep=""))
+  prev_files <- list.files(prev_gen_folder)
+
+  #RUN BGOLLY
+  #AND
+  #READ THE FILES WITH NEW GEN IN POPULATION
+  new_pop <- c()
+  for (i in 1:length(prev_files)){
+
+    outputfile <- paste(new_gen_folder, iternumber, sprintf("/G%s_org_%s.rle", iternumber, i), sep="")
+    inputfile <- paste(prev_gen_folder, "/", prev_files[i], sep="")
+
+    system(sprintf("bgolly/bgolly -m 1000 -o %s %s",
+                   outputfile, #OUTPUT
+                   inputfile)) #INPUT
+
+    new_pop <- c(new_pop, rle2mat(outputfile)) #RLE ACCEPTS ONLY EXTENDED RLE
+    system(sprintf("rm %s", outputfile)) #delete the output file (it was intermediate)
+  }
+  print("DONE BGOLLY")
+
+  #GET GEN NEW POPULATION
+  new_pop <- population( organisms = as.list(new_pop), fitness = rep(NA, length(new_pop)) )
 
   #EVALUATION
-  Fitness()
+  fitness <- popFitness(new_pop)
+  new_pop@fitness <- fitness
 
   #SELECTION
-  Selection()
+  Gnext <- Selection(new_pop, selecPor)
 
   #MUTATION
-  Mutation()
+  Gmut <- popMutation(Gnext, md = c("constant"), 0.5)
 
   #WRITING
-  mut2rle()
+  for (i in 1:length(Gmut@organisms)){
+
+    outputfile <- paste(new_gen_folder, iternumber, sprintf("/G%s_org%s.xrle", iternumber, i), sep="")
+    mat2rle(Gmut@organisms[[i]], fileName = sprintf("~/Desktop/test_bgolly/G1_org_%s.xlre", i))
+
+  }
+
+  #return mutated population
+  return(Gmut)
 
 }
-
-
-test_guy <- god(I = 9, J = 9, density = 0.5)
-mat2rle(test_guy, "~/Desktop/test_bgolly/test_guy.xrle")
-system('bash -c "bgolly/bgolly -m 1000 -o ~/Desktop/test_bgolly/test_iterated.xrle ~/Desktop/test_bgolly/test_guy.xrle"')
-iterated_guy <- rle2mat("~/Desktop/test_bgolly/test_iterated.xrle")
-itet_pop <- population( organisms = list(iterated_guy), fitness = c(NA) )
-fitness <- popFitness(itet_pop)
-itet_pop@fitness <- fitness
-G1 <- Selection(itet_pop, 0.01)
-itet_guy <- Mutation(G1, md = c("constant"), 0.5, mut_rate_sd= NULL)
-
-getwd()
