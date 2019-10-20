@@ -29,6 +29,7 @@ rle2mat <- function(bgolly_object) {
   if(sum(unlist(gregexpr("#CX",pattern[3]))>0))
   {
     pos = strsplit(pattern[pos_loc],"Pos=")[[1]][2]
+    pos = strsplit(pos," ")[[1]][1]
   }
   len_x_loc = 2
   len_y_loc = 2
