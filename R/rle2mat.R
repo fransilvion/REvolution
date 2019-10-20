@@ -48,6 +48,7 @@ rle2mat <- function(file_path) {
       i=1
       for (cells in cell_lines)
       {
+        print(cells)
         if((substr(cells, 1,1) == "o")||(substr(cells, 1,1) == "b"))
         {
           tmp_cell = paste("1",cells, sep = "")
