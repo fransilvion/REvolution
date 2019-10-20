@@ -58,7 +58,7 @@ rle2mat <- function(file_path) {
     if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
         {
           tmp_l = strsplit(gsub("[o/b]", " ", tmp_cell)," ")[[1]]
-          empty_row = as.numeric(tmp_l[length(tmp_l)])-1
+          empty_row = as.numeric(tmp_l[length(tmp_l)])
           tmp_cell = substr(tmp_cell,1,nchar(tmp_cell)-nchar(tmp_l[length(tmp_l)]))
         } else {empty_row = 1}
     z <- list()
