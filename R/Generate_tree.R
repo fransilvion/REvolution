@@ -2,7 +2,7 @@
 #'
 #' Given a population with recorded fitness.
 #' Select best Y portion and repopulate.
-#'
+#' Requres ape library
 #'
 #' @param ancestery An ancestery object for the population
 #' @param warnings Boolean for warning gneration (Default = TRUE)
