@@ -1,14 +1,14 @@
 #' Generate_tree
 #'
-#' Given an ancestery object generate a phylogenetic tree
+#' Given an ancestey object generate a phylogenetic tree
 #'
-#' @param ancestery An ancestery object for the population
+#' @param ancestry An ancestey object for the population
 #' @param warnings Boolean for warning gneration (Default = TRUE)
 #'
 #' @return A phylogentic tree object for plotting
 #'
 #' @examples
-#' Tree <- Generate_tree(Ancestery)
+#' Tree <- Generate_tree(Ancestry)
 #' plot(Tree)
 #'
 #'
@@ -20,17 +20,17 @@ Generate_tree<- function(inANS, warnings=TRUE){
   require('ape')
   
   #Initalise history from final generation selection
-  ancestery <- inANS@map
-  hist <- as.data.frame(cbind(unique(ancestery[nrow(ancestery),])))
+  ancestey <- inANS@map
+  hist <- as.data.frame(cbind(unique(ancestey[nrow(ancestey),])))
   colnames(hist) <- c("last")
-  idx <- cbind(seq(1,length(unique(ancestery[nrow(ancestery),]))))
-  ancestery <- ancestery[-c(nrow(ancestery)),]
+  idx <- cbind(seq(1,length(unique(ancestey[nrow(ancestey),]))))
+  ancestey <- ancestey[-c(nrow(ancestey)),]
   
   #Populate history
-  for(g in seq(nrow(ancestery),1)){
+  for(g in seq(nrow(ancestey),1)){
     g_idx <- c()
     for(o in seq(1,nrow(hist))){
-      g_idx <- append(g_idx, ancestery[g,hist[o,1]])
+      g_idx <- append(g_idx, ancestey[g,hist[o,1]])
     }
     hist$gidx <- g_idx
     
