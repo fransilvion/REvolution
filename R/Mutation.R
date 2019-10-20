@@ -6,7 +6,9 @@
 #' Accepts a binary matrix
 #' and returns a `organism` object
 #'
-#' @param file_path full path of pattern file along with the name
+#' @param org_bin_matr
+#' @param md
+#' @param mut_rate_avg
 #'
 #' @return An organism-class object
 #'
