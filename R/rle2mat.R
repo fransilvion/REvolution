@@ -40,7 +40,7 @@ rle2mat <- function(file_path) {
   cell_lines = unlist(strsplit(cells, "\\$"))
   # Construct matrix for organism
   #organism_l = Matrix(F, nrow = len_y, ncol = len_x, sparse = T)
-  if(cell_lines == "!")
+  if(cells == "!")
   {
     organism_l = matrix(F, nrow = len_y+1, ncol = len_x+1)
   }else{
@@ -59,7 +59,9 @@ rle2mat <- function(file_path) {
         tmp_cell = gsub("bo", replacement = "b1o", tmp_cell)
         tmp_cell = gsub("ob", replacement = "o1b", tmp_cell)
         tmp_cell = gsub("!", replacement = "", tmp_cell)
-        if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
+        l = substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))
+        #if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
+        if(l!="o"&&l!="b")
             {
               tmp_l = strsplit(gsub("[o/b]", " ", tmp_cell)," ")[[1]]
               empty_row = as.numeric(tmp_l[length(tmp_l)])
