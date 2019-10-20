@@ -17,5 +17,9 @@ make -f makefile-gtk bgolly
 
 ## with fitness function
 ./bgolly -m {maxgen} -F {function} -o stdout stdin
-
 note: maxgen defaults to 0 if unspecified
+
+### fitness functions:
+- demo: stub, returns 0
+- pop: the number of live cells
+- right: max\_xpos - max\_abs\_y^2
