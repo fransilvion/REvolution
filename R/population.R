@@ -15,8 +15,8 @@
 #' @examples
 #'
 #' # The population at g0 is glider and inverse_glider organisms
-#' # Fitness is initially undefined
-#' gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
+#' # Fitness and maternal line are initially undefined
+#' gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) , maternal_line = c(NA,NA) )
 #'
 #' @export
 population <- setClass(Class = "population", representation(organisms = "list", fitness = "vector", maternal_line = "vector"))
@@ -32,6 +32,6 @@ population <- setClass(Class = "population", representation(organisms = "list", 
 # # Inverse of the glider above
 # glider_inv <-  organism(cells = !attr(glider, "cells"))
 #
-# gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
+# gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) , maternal_line = c(NA,NA) )
 
 #QED

@@ -18,29 +18,43 @@
 #require(Matrix)
 rle2mat <- function(file_path) {
   # Read coordinates and pattern
-
-  # Read each line of .rle file
-  pattern = scan(file = file_path, what = character())
+  #pattern = scan(file = file_path, what = character())
+  con = file(file_path, "r")
+  line = readLines(con)
+  close(con)
+  pattern = line
   # Get start position of organism
-  pos_loc = 2
-  len_x_loc = 5
-  len_y_loc = 8
-  cell_loc = 12
-  loc = c(len_x_loc, len_y_loc, cell_loc)
-  if(unlist(gregexpr("Gen",pattern[3]))>0)
+  pos=NA
+  pos_loc = 1
+  if(sum(unlist(gregexpr("#CX",pattern[3]))>0))
   {
-    loc = loc+1
+    pos = strsplit(pattern[pos_loc],"Pos=")[[1]][2]
   }
-  pos = strsplit(pattern[pos_loc],"=")[[1]][2]
+  len_x_loc = 2
+  len_y_loc = 2
+  cell_loc = 3
+  Gen_loc = 1
+  num_hash = 0
+  loc = c(len_x_loc, len_y_loc, cell_loc)
+  for (n in seq(1:length(pattern)))
+    {
+      if(substr(pattern[n],1,3)=="#C ")
+      {
+        num_hash = num_hash + 1
+      }
+  }
+  loc=loc+num_hash-1
+  #pos = strsplit(pattern[pos_loc],"=")[[1]][2]
   # Get dimensions of the organism
-  len_x = as.numeric(strsplit(pattern[loc[1]],",")[[1]][1])
-  len_y = as.numeric(strsplit(pattern[loc[2]],",")[[1]][1])
+  dim = strsplit(pattern[loc[1]],",")
+  len_x = as.numeric(strsplit(dim[[1]][1]," = ")[[1]][2])
+  len_y = as.numeric(strsplit(dim[[1]][2]," = ")[[1]][2])
   # Get coordinates of live cells
   cells = paste(pattern[loc[3]:length(pattern)], collapse = "")
   cell_lines = unlist(strsplit(cells, "\\$"))
   # Construct matrix for organism
   #organism_l = Matrix(F, nrow = len_y, ncol = len_x, sparse = T)
-  if(cell_lines == "!")
+  if(cells == "!")
   {
     organism_l = matrix(F, nrow = len_y+1, ncol = len_x+1)
   }else{
@@ -60,7 +74,9 @@ rle2mat <- function(file_path) {
         tmp_cell = gsub("bo", replacement = "b1o", tmp_cell)
         tmp_cell = gsub("ob", replacement = "o1b", tmp_cell)
         tmp_cell = gsub("!", replacement = "", tmp_cell)
-        if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
+        l = substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))
+        #if(substr(tmp_cell,nchar(tmp_cell), nchar(tmp_cell))!="o")
+        if(l!="o"&&l!="b")
             {
               tmp_l = strsplit(gsub("[o/b]", " ", tmp_cell)," ")[[1]]
               empty_row = as.numeric(tmp_l[length(tmp_l)])
