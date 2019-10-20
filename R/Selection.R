@@ -20,12 +20,13 @@ Selection <- function(inPop, por = 0.1){
   
   #Check that there is a fitness for every organsism
   l <- length(inPop@fitness)
-  if(l != length(inPop@organisms)){stop("Error: Lenght of orgnaisms and fitenss do not match")}
+  if(l != length(inPop@organisms)){stop("Error: Length of orgnaisms and fitenss do not match")}
   
   #Collect indexes for the top Y protion 
   #Note: rounds up number of organsisms
   min <- sort(inPop@fitness, partial=1+l-l*por)[1+l-l*por]
   idx <- which(inPop@fitness >= min)
+  if(l <= length(idx)){stop("Error: All organisms were selected")}
   
   #Duplicates indexes of indivividuals to repopulate
   idx <- sort(rep(idx, ceiling(1/(length(idx)/l))))
