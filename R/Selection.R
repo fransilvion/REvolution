@@ -4,7 +4,7 @@
 #' Select best Y portion and repopulate.
 #'
 #'
-#' @param inPop The input organism-object
+#' @param inPop The input population-object
 #' @param por The portion of population to keep for gen n+1 (Default = 0.1)
 #'
 #' @return A population of the same size generated from the top portion

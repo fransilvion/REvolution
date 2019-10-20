@@ -27,13 +27,18 @@ Authors@R:
 Description: R implementation of the "Game of Evolution". Evolve automota in Game of Life.
 License: GPLv2
 Imports:
+    dplyr,
     ggplot2,
+    magrittr,
     Matrix,
-    sparseMVN,
     mvtnorm,
-    reshape2,
     plotly,
-    plot.matrix
+    plot.matrix,
+    purrr,
+    reshape2,
+    sparseMVN,
+    utils
+    
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1.9000
