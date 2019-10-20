@@ -7,3 +7,5 @@ sudo apt-get install libwxgtk3.0-dev
 cd gui-wx
 
 make -f makefile-gtk bgolly
+
+# NOTE!!! Only on Linux systems. (only makefile-gtk is configured)
