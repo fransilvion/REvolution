@@ -42,7 +42,8 @@ generation <- function(new_gen_folder="G", prev_gen_folder, iternumber=1, selecP
   for (i in 1:length(prev_files)){
 
     outputfile <- paste(new_gen_folder, iternumber, sprintf("/G%s_org_%s.xrle", iternumber, i), sep="")
-    inputfile <- paste(prev_gen_folder, "/", prev_files[i], sep="")
+    #inputfile <- paste(prev_gen_folder, "/", prev_files[i], sep="")
+    inputfile <- paste(prev_gen_folder, sprintf("/G%s_org_%s.xrle", iternumber-1, i), sep="")
 
     system(sprintf("bgolly/bgolly -m %s -o %s %s",
                    bgolly_iter,
@@ -64,12 +65,16 @@ generation <- function(new_gen_folder="G", prev_gen_folder, iternumber=1, selecP
   #EVALUATION
   fitness <- popFitness(new_pop, fun = fitnessFun)
   old_pop@fitness <- fitness
+  max_indx <- which.max(fitness)
 
   #SELECTION
-  Gnext <- Selection(old_pop, selecPor)
+  res <- Selection(old_pop, selecPor, max_indx)
+  Gnex <- res[[1]]
+  new_max_indx <- res[[2]]
 
   #MUTATION
-  Gmut <- popMutation(Gnext, md = c("constant"), mutRate)
+  #Gmut <- popMutation(Gnext, md = c("constant"), mutRate)
+  Gmut <- popMutationNotBest(Gnext, md = c("constant"), mutRate, new_max_indx)
 
   #WRITING
   for (i in 1:length(Gmut@organisms)){
