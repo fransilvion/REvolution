@@ -1,4 +1,4 @@
-#' Generate_tree: Sel(X)
+#' Generate_tree
 #'
 #' Given a population with recorded fitness.
 #' Select best Y portion and repopulate.
@@ -77,4 +77,18 @@ Generate_tree<- function(ancestery, final_gen, warnings=TRUE){
   #Generate tree from string and return
   return(read.tree(text = str))
 }
+
+
+#Example plots for ape
+#Phylogram
+#plot(tree)
+#plot(tree, type = 'phylogram')
+#Cladogram
+#plot(tree, type = 'cladogram')
+#Fan
+#plot(tree, type = 'fan')
+#Unrooted
+#plot(tree, type = 'unrooted')
+#Radial
+#plot(tree, type = 'radial')
 
