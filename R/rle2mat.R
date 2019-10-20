@@ -16,13 +16,13 @@
 #'
 #' @export
 #require(Matrix)
-rle2mat <- function(file_path) {
+rle2mat <- function(bgolly_object) {
   # Read coordinates and pattern
   #pattern = scan(file = file_path, what = character())
-  con = file(file_path, "r")
-  line = readLines(con)
-  close(con)
-  pattern = line
+  #con = file(file_path, "r")
+  #line = readLines(con)
+  #close(con)
+  pattern = bgolly_object
   # Get start position of organism
   pos=NA
   pos_loc = 1
@@ -100,6 +100,6 @@ rle2mat <- function(file_path) {
   #return(organism_l)
 }
 
-file_path  = "./pattern.rle"
-file_path = "./origin.rle"
-rle2mat(file_path = file_path)
+#file_path  = "./pattern.rle"
+#file_path = "./origin.rle"
+rle2mat(bgolly_object = bgolly_object)
