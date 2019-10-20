@@ -4,16 +4,38 @@
 #'
 #'
 #'
-#' @param
-#' @param
+#' @param bgolly_path
+#' @param input_rle
+#' @param input_organism
+#' @param output
+#' @param generation
+#' @param stepsize
+#' @param maxmemory
+#' @param maxtime
+#' @param benchmark
+#' @param exponential
+#' @param rule
+#' @param search
+#' @param hashlife
+#' @param algorithm
+#' @param verbose
+#' @param timeline
+#' @param render
+#' @param progress
+#' @param popcount
+#' @param scale
+#' @param autofit
+#' @param exec
 #'
-#' @return
+#'
+#' @return None yet
 #'
 #' @examples
 #'
 #'
 #'
 #' @export
+
 require(purrr)
 require(utils)
 require(dplyr)
@@ -60,7 +82,7 @@ rGolly <- function(bgolly_path = "bgolly/bgolly",
     testing <- paste0("system(", sys_comm, ")")
   }
 
-  system(sys_comm)
+  #system(sys_comm)
 
 }
 

@@ -3,11 +3,31 @@
 #'
 #'
 #'
+#' @param org_population
+#' @param bgolly_path
+#' @param input_rle
+#' @param input_organism
+#' @param output
+#' @param generation
+#' @param stepsize
+#' @param maxmemory
+#' @param maxtime
+#' @param benchmark
+#' @param exponential
+#' @param rule
+#' @param search
+#' @param hashlife
+#' @param algorithm
+#' @param verbose
+#' @param timeline
+#' @param render
+#' @param progress
+#' @param popcount
+#' @param scale
+#' @param autofit
+#' @param exec
 #'
-#' @param
-#' @param
-#'
-#' @return
+#' @return None yet
 #'
 #' @examples
 #'
