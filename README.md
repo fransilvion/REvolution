@@ -1,9 +1,9 @@
-# Game of Evolution
+![](https://github.com/fransilvion/REvolution/blob/master/img/logo.gif)
 
-In Game of Evolution, each "organism" is a randomly generated instance of the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life), where a simple set or rules give rise to meta-stable entities termed Cellular Automata (CA). The organisms will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
+In Game of Evolution, the basic unit of life is an "organism"(a randomly generated instance of the classic [Conway's Game of Life](https://en.wikipedia.org/wiki/Game_of_Life)). The "organisms" will compete and evolve [via genetic algorithms](https://www.youtube.com/watch?v=qv6UVOQ0F44) to accomplish survival tasks within this universe, with the ultimate  goal of evolving a self-replicating system, or Artificial Life.
 
-## First we start with Game of Life
-An organism is made up of many cells, which follows these set of rules: 
+## What is Game of Life?
+In Game of Life, a simple set of rules give rise to meta-stable entities termed [Cellular Automata](https://en.wikipedia.org/wiki/Cellular_automaton) (CA). Our "organism" is made up of many cells that follow these rules: 
 
 1. Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 
@@ -13,19 +13,27 @@ An organism is made up of many cells, which follows these set of rules:
 
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-#### Simple examples: 
+#### Simple Demonstration: 
+![](https://github.com/fransilvion/REvolution/blob/master/img/simple.gif)
+   
+   They could be very complex: 
+   
+![](https://github.com/fransilvion/REvolution/blob/master/img/pattern_complex.gif)
+![](https://github.com/fransilvion/REvolution/blob/master/img/complex.gif)
    
 ## Rules of the Game of Evolution
 
 1. The universe is Conway's Game of Life (see above).
 
-2. We begin with N organisms, with a 
+2. We begin with N "organisms", each with a randomly generated initial state. 
 
 3. The objective is to design an environment which elicites a response from the set of all possible organisms.
 
-4. Individual organisms may be stochiastically mutated.
+4. Individual "organisms" may be stochastically mutated.
 
-5. The game is won when an organism is evolved that can recapitulate the internal logic of the Game of Evolution.
+5. The game is won when we evolve an organism that can recapitulate the internal logic of the Game of Evolution.
+
+The evolution process is achieved through N generations. Each generation is created by applying __genetic algorithm__(see below) to the previous generation.   
 
 ## Genetic algorithm
 
@@ -66,25 +74,23 @@ These four steps form one "generation".
 
 Typically, thousands (or in the case of humans billions) of generations occur to 'solve' an environment.
 
-![Alt Text](https://raw.githubusercontent.com/fransilvion/REvolution/master/img/game_of_evolutions.png)
-
 ## An example environment
 
 ![Alt Text](https://i.imgur.com/qVyIWmK.gif)
 
 The objective of this project is to create a meta-framework in which the Game of Evolution may be played.
 
-For example, we initiate 10,000 each of an organism defined as a 1,000 unit-cell circle (that is 10^301 possible states). Each organism will run for a million iterations of the Game of Life.
+For example, we initiate 10,000 "organisms" defined as a 1,000 unit-cell circle (that is 10^301 possible states). Each "organism" will run for a million iterations of the Game of Life.
 
-After a million iterations, organisms fitness is evaluted by far (up and to the right) and how quickly the organism reached within the environment the organism reached.
+After a million iterations, the fitness of an "organism" is evaluted by how far right and how quickly the "organism" reached within the environment(the more to the right it moved, the higher the fitness).
 
-**Fitness function:** x/t + y/t
+**Fitness function:** max(x) - max(y)^2
 
-The 1,000 most fit organisms from the current generation will be selected, allowed to grow via the mutation function and form the next generation.
+The 1,000 most fit "organisms" from the current generation will be selected, allowed to grow via the mutation function and form the next generation.
 
 **Mutation function** Mu(organism_N) = {organism_N1,organism_N2,...,organism_N10}
 
-New organisms will arise, and the process restarts. Each iteration brining the evolved organisms closer and closer to 'solving' the environment.
+New "organisms" will arise, and the process restarts. Each iteration brining the evolved "organisms" closer and closer to winning the game.
 
 ## Required software 
 
