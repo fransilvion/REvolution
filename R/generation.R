@@ -2,7 +2,6 @@
 #'
 #' function that runs one iteration of the genetic algorithm
 #'
-#' @param  old_population - object of a class population
 #' @param  new_gen_folder - folder where to save the new organisms
 #' @param  prev_gen_folder - folder with organisms from the previous generation
 #' @param  iternumber - number of the generation
@@ -28,7 +27,7 @@
 #'
 #' @export
 
-generation <- function(old_population, new_gen_folder="G", prev_gen_folder, iternumber=1, selecPor = 0.1, bgolly_iter=1000,
+generation <- function(new_gen_folder="G", prev_gen_folder, iternumber=1, selecPor = 0.1, bgolly_iter=1000,
                        mutRate = 0.005, fitnessFun="sum"){
 
   #CREATE A FOLDER FOR NEW GENERATION
@@ -38,6 +37,7 @@ generation <- function(old_population, new_gen_folder="G", prev_gen_folder, iter
   #RUN BGOLLY
   #AND
   #READ THE FILES WITH NEW GEN IN POPULATION
+  old_pop <- c()
   new_pop <- c()
   for (i in 1:length(prev_files)){
 
@@ -49,20 +49,24 @@ generation <- function(old_population, new_gen_folder="G", prev_gen_folder, iter
                    outputfile, #OUTPUT
                    inputfile)) #INPUT
 
+    old_pop <- c(old_pop, rle2mat(inputfile))
     new_pop <- c(new_pop, rle2mat(outputfile)) #RLE ACCEPTS ONLY EXTENDED RLE
     system(sprintf("rm %s", outputfile)) #delete the output file (it was intermediate)
   }
   print("DONE BGOLLY")
+
+  #GET GEN OLD POPULATION
+  old_pop <- population( organisms = as.list(old_pop), fitness = rep(NA, length(new_pop)) )
 
   #GET GEN NEW POPULATION
   new_pop <- population( organisms = as.list(new_pop), fitness = rep(NA, length(new_pop)) )
 
   #EVALUATION
   fitness <- popFitness(new_pop, fun = fitnessFun)
-  old_population@fitness <- fitness
+  old_pop@fitness <- fitness
 
   #SELECTION
-  Gnext <- Selection(old_population, selecPor)
+  Gnext <- Selection(old_pop, selecPor)
 
   #MUTATION
   Gmut <- popMutation(Gnext, md = c("constant"), mutRate)
