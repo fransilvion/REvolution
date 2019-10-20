@@ -8,7 +8,8 @@
 #' @return A record of current ancestry data for the poulation
 #'
 #' @examples
-#' ancestery_record <- rec_anc(inPop)
+#' inital_record <- rec_anc(inPop)
+#' group_record <- rec_anc(inPop,rec)
 #'
 #'
 #' @export
