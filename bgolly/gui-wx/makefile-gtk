@@ -91,12 +91,12 @@ WX_CXXFLAGS = `wx-config --cxxflags` $(IRRKLANG_INCLUDE) -I$(LUADIR)
 WX_LDFLAGS = `wx-config --libs`
 
 OBJDIR = ObjGTK
-BASEH = $(BASEDIR)/bigint.h $(BASEDIR)/ghashbase.h $(BASEDIR)/hlifealgo.h $(BASEDIR)/jvnalgo.h \
+BASEH = $(BASEDIR)/fitness.h $(BASEDIR)/bigint.h $(BASEDIR)/ghashbase.h $(BASEDIR)/hlifealgo.h $(BASEDIR)/jvnalgo.h \
    $(BASEDIR)/platform.h $(BASEDIR)/lifealgo.h $(BASEDIR)/lifepoll.h $(BASEDIR)/liferender.h $(BASEDIR)/liferules.h \
    $(BASEDIR)/qlifealgo.h $(BASEDIR)/ltlalgo.h $(BASEDIR)/readpattern.h $(BASEDIR)/util.h $(BASEDIR)/viewport.h \
    $(BASEDIR)/writepattern.h $(BASEDIR)/ruletreealgo.h $(BASEDIR)/generationsalgo.h $(BASEDIR)/ruletable_algo.h \
    $(BASEDIR)/ruleloaderalgo.h
-BASEOBJ = $(OBJDIR)/bigint.o $(OBJDIR)/lifealgo.o $(OBJDIR)/hlifealgo.o \
+BASEOBJ = $(OBJDIR)/fitness.o $(OBJDIR)/bigint.o $(OBJDIR)/lifealgo.o $(OBJDIR)/hlifealgo.o \
    $(OBJDIR)/hlifedraw.o $(OBJDIR)/qlifealgo.o $(OBJDIR)/qlifedraw.o $(OBJDIR)/ltlalgo.o $(OBJDIR)/ltldraw.o \
    $(OBJDIR)/jvnalgo.o $(OBJDIR)/ruletreealgo.o $(OBJDIR)/ruletable_algo.o $(OBJDIR)/ruleloaderalgo.o \
    $(OBJDIR)/ghashbase.o $(OBJDIR)/ghashdraw.o $(OBJDIR)/readpattern.o \
@@ -145,6 +145,9 @@ $(LUALIB):
 
 $(OBJDIR)/bgolly.o: $(CMDDIR)/bgolly.cpp
 	$(CXXC) $(CXXFLAGS) $(ZLIB_CXXFLAGS) -c -o $@ $(CMDDIR)/bgolly.cpp
+
+$(OBJDIR)/fitness.o: $(BASEDIR)/fitness.cpp
+	$(CXXC) $(CXXFLAGS) -c -o $@ $(BASEDIR)/fitness.cpp
 
 $(OBJDIR)/RuleTableToTree.o: $(CMDDIR)/RuleTableToTree.cpp
 	$(CXXC) $(CXXFLAGS) -c -o $@ $(CMDDIR)/RuleTableToTree.cpp

@@ -2,6 +2,7 @@
 // See docs/License.html for the copyright notice.
 
 #include "qlifealgo.h"
+#include "fitness.h"
 #include "hlifealgo.h"
 #include "generationsalgo.h"
 #include "ltlalgo.h"
@@ -128,6 +129,7 @@ int hyperxxx ;   // renamed hyper to avoid conflict with windows.h
 int render, autofit, quiet, popcount, progress ;
 int hashlife ;
 char *algoName = 0 ;
+char *fitnessType = NULL;
 int verbose ;
 int timeline ;
 int stepthresh, stepfactor ;
@@ -138,6 +140,7 @@ char *testscript = 0 ;
 int outputgzip, outputisxrle, outputismc ;
 int numberoffset ; // where to insert file name numbers
 options options[] = {
+  { "-F", "--fitness", "Output a fitness value instead", 's', &fitnessType },
   { "-m", "--generation", "How far to run", 'I', &maxgen },
   { "-i", "--stepsize", "Step size", 'I', &inc },
   { "-M", "--maxmemory", "Max memory to use in megabytes", 'i', &maxmem },
@@ -192,6 +195,11 @@ void usage(const char *s) {
 #define STR2(ARG) #ARG
 #define MAXRLE 1000000000
 void writepat(int fc) {
+   if (fitnessType) {
+     //output fitness type
+     evaluateFitness(string(fitnessType), *imp, cout);
+     return;
+   }
    char *thisfilename = outfilename ;
    char tmpfilename[256] ;
    if (fc >= 0) {
@@ -577,11 +585,22 @@ case 's':
       if (!hit)
          usage("Bad option given") ;
    }
+   if (fitnessType) {
+      if (isValidFitness(string(fitnessType))) {
+        fprintf(stderr, "Using fitness function (%s).\nUsing standard output!\n", fitnessType);
+      } else {
+        fprintf(stderr, "Invalid fitness function! (%s).\n", fitnessType);
+        listFitnessOptions();
+        exit(-1);
+      }
+      useStdout = true;
+      // validate fitness
+   }
    if (argc < 2 && !testscript)
       usage("No pattern argument given") ;
    if (argc > 2)
       usage("Extra stuff after pattern argument") ;
-   if (outfilename) {
+   if (!useStdout || outfilename) {
       if (!strcmp(outfilename, "stdout")) {
         fprintf(stderr, "Using standard output!\n");
         useStdout = true;
@@ -691,14 +710,14 @@ case 's':
       imp->step() ;
       if (boundedgrid && !imp->DeleteBorderCells()) break ;
       if (timeline) imp->extendtimeline() ;
-      if (!useStdout && maxgen < 0 && outfilename != 0)
+      if (!fitnessType && !useStdout && maxgen < 0 && outfilename != 0)
          writepat(fc++) ;
       if (timeline && imp->getframecount() + 2 > MAX_FRAME_COUNT)
          imp->pruneframes() ;
       if (hyperxxx)
          imp->setIncrement(imp->getGeneration()) ;
    }
-   if (useStdout || (maxgen >= 0 && outfilename != 0))
+   if (fitnessType || useStdout || (maxgen >= 0 && outfilename != 0))
       writepat(-1) ;
    exit(0) ;
 }
