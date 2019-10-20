@@ -7,7 +7,7 @@
 Selection(inPop, por = 0.1)
 }
 \arguments{
-\item{inPop}{The input organism-object}
+\item{inPop}{The input population-object}
 
 \item{por}{The portion of population to keep for gen n+1 (Default = 0.1)}
 }

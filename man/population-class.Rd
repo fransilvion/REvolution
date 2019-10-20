@@ -25,7 +25,7 @@ fitness values
 \examples{
 
 # The population at g0 is glider and inverse_glider organisms
-# Fitness is initially undefined
-gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) )
+# Fitness and maternal line are initially undefined
+gliders_G0 <- population( organisms = list( glider, glider_inv), fitness = c(NA,NA) , maternal_line = c(NA,NA) )
 
 }

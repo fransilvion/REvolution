@@ -4,10 +4,14 @@
 \alias{popMutation}
 \title{mutation}
 \usage{
-popMutation(org_population, md = c("constant", "poisson"), mut_rate_avg)
+popMutation(org_population, md = c("constant"), mut_rate_avg = 0.1)
 }
 \arguments{
-\item{file_path}{}
+\item{org_population}{tmp}
+
+\item{md}{tmp}
+
+\item{mut_rate_avg}{tmp}
 }
 \value{
 A list of organism-class object

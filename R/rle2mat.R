@@ -106,4 +106,4 @@ rle2mat <- function(bgolly_object) {
 
 #file_path  = "./pattern.rle"
 #file_path = "./origin.rle"
-rle2mat(bgolly_object = bgolly_object)
+#rle2mat(bgolly_object = bgolly_object)

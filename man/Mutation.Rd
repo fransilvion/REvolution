@@ -4,11 +4,14 @@
 \alias{Mutation}
 \title{Mutation}
 \usage{
-Mutation(org_bin_matr, md = c("constant", "poisson"),
-  mut_rate_avg = 0.1)
+Mutation(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1)
 }
 \arguments{
-\item{file_path}{full path of pattern file along with the name}
+\item{org_bin_matr}{tmp}
+
+\item{md}{tmp}
+
+\item{mut_rate_avg}{tmp}
 }
 \value{
 An organism-class object
