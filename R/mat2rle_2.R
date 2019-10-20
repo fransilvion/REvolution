@@ -86,7 +86,8 @@ mat2rle_2 <- function(organism_l, fileName) {
     pos_str = paste0("#CXRLE Pos=", pos)
     dim_str = paste0("x = ", x_len, ", y = ", y_len,", rule = B3/S23")
     cat(pos_str,dim_str,rle_str,file=fileName,append=F, sep = "\n")
-    return()
+    bgolly_object = c(pos_str,dim_str,rle_str)
+    return(bgolly_object)
 }
 #file_path = "./test.rle"
 #organism_l = rle2mat(file_path = file_path)
