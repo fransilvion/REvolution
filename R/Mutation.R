@@ -20,10 +20,6 @@
 #' @export
 
 
-#sz = 10000
-#org <- sample(c(0,1), sz^2, replace = TRUE, prob = c(0.99, 0.01)) %>% matrix(nrow = sz, ncol = sz)
-# matrix(c(1,2,3,4), ncol=2) will become COL1(1,2), ROW2(3,4)
-
 Mutation <- function(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1) {
   # Create matrix to mutate
   org_mut <- as.logical(org_bin_matr@cells)
@@ -31,12 +27,10 @@ Mutation <- function(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1) {
   # Get mutation rate
   if(md == "constant"){
     mut_rate = mut_rate_avg
-  }
-  if(md == "poisson") {
+  } else if(md == "poisson") {
     mut_rate = rpois(1, length(org_mut)*mut_rate_avg)/length(org_mut)
-  }
-  if(!(md %in% c("constant", "poisson"))) {
-    return("Select either constant or poisson")
+  } else if(!(md %in% c("constant", "poisson"))) {
+    stop("Select either constant or poisson")
   }
 
   # Determine indices to mutate
@@ -51,21 +45,9 @@ Mutation <- function(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1) {
     }
   }
 
-  # Mutate the organism
-#  for (i in 1:length(org_mut)) {
-#    curr = org_mut[i]
-#    mut = sample(c(TRUE, FALSE), 1, replace = TRUE, prob = c(mut_rate, 1-mut_rate))
-#    if(mut == FALSE) {
-#      next}
-#    if(mut == TRUE & curr == FALSE) {
-#      org_mut[i] = TRUE }
-#    if(mut == TRUE & curr == TRUE) {
-#      org_mut[i] = FALSE }
-#  }
-
   org_mut <- matrix(org_mut, ncol = ncol(org_bin_matr@cells), nrow = nrow(org_bin_matr@cells))
   org_mut <- organism(cells = org_mut, shift = org_bin_matr@shift)
   return(org_mut)
 }
 
-#Mutation(glider, md = c("constant"), 0.5, mut_rate_sd= NULL)
+Mutation(glider, md = c("constnt"), 0.5)
