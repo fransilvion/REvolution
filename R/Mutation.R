@@ -50,4 +50,4 @@ Mutation <- function(org_bin_matr, md = c("constant"), mut_rate_avg = 0.1) {
   return(org_mut)
 }
 
-Mutation(glider, md = c("constnt"), 0.5)
+#Mutation(glider, md = c("constnt"), 0.5)
