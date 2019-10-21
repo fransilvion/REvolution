@@ -16,10 +16,13 @@ In Game of Life, a simple set of rules give rise to meta-stable entities termed 
 #### Simple Demonstration: 
 ![](https://github.com/fransilvion/REvolution/blob/master/img/simple.gif)
    
-   They could be very complex: 
+They could be very complex: 
+   
+![](https://github.com/fransilvion/REvolution/blob/master/img/complex.gif)
+
+And even create interesting patterns: 
    
 ![](https://github.com/fransilvion/REvolution/blob/master/img/pattern_complex.gif)
-![](https://github.com/fransilvion/REvolution/blob/master/img/complex.gif)
    
 ## Rules of the Game of Evolution
 
@@ -76,13 +79,13 @@ Typically, thousands (or in the case of humans billions) of generations occur to
 
 ## An example environment
 
-![Alt Text](https://i.imgur.com/qVyIWmK.gif)
-
 The objective of this project is to create a meta-framework in which the Game of Evolution may be played.
 
 For example, we initiate 10,000 "organisms" defined as a 1,000 unit-cell circle (that is 10^301 possible states). Each "organism" will run for a million iterations of the Game of Life.
 
 After a million iterations, the fitness of an "organism" is evaluted by how far right and how quickly the "organism" reached within the environment(the more to the right it moved, the higher the fitness).
+
+<img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_top_right.gif" height="300"/><img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_right_with_fitness.gif" height="300"/>
 
 **Fitness function:** max(x) - max(y)^2
 
@@ -91,6 +94,10 @@ The 1,000 most fit "organisms" from the current generation will be selected, all
 **Mutation function** Mu(organism_N) = {organism_N1,organism_N2,...,organism_N10}
 
 New "organisms" will arise, and the process restarts. Each iteration brining the evolved "organisms" closer and closer to winning the game.
+
+### Here is a demonstration of the evolution process: 
+
+![](https://github.com/fransilvion/REvolution/blob/master/img/generations_simulation.gif)
 
 ## Required software 
 
