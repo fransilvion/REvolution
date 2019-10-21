@@ -14,15 +14,15 @@ In Game of Life, a simple set of rules give rise to meta-stable entities termed 
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 #### Simple Demonstration: 
-![](https://github.com/fransilvion/REvolution/blob/master/img/simple.gif)
+<img src="https://github.com/fransilvion/REvolution/blob/master/img/simple.gif" alt="Simple example of Game of Life" width="400"/>
    
 They could be very complex: 
    
-![](https://github.com/fransilvion/REvolution/blob/master/img/complex.gif)
+<img src="https://github.com/fransilvion/REvolution/blob/master/img/pattern_complex.gif" width="500"/>
 
 And even create interesting patterns: 
-   
-![](https://github.com/fransilvion/REvolution/blob/master/img/pattern_complex.gif)
+
+<img src="https://github.com/fransilvion/REvolution/blob/master/img/complex.gif" height="250"/>
    
 ## Rules of the Game of Evolution
 
@@ -85,7 +85,7 @@ For example, we initiate 10,000 "organisms" defined as a 1,000 unit-cell circle 
 
 After a million iterations, the fitness of an "organism" is evaluted by how far right and how quickly the "organism" reached within the environment(the more to the right it moved, the higher the fitness).
 
-<img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_top_right.gif" height="300"/><img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_right_with_fitness.gif" height="300"/>
+<img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_top_right.gif" height="300"/>&emsp;<img src="https://github.com/fransilvion/REvolution/blob/master/img/moving_to_right_with_fitness.gif" height="300"/>
 
 **Fitness function:** max(x) - max(y)^2
 
